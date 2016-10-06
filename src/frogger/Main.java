@@ -7,7 +7,7 @@ public class Main {
 	private static JFrame frame = new JFrame();
 	public static void main(String[] args)
     {
-		Background.setBackground("long.png");
+		Background.setBackground("map.png");
 		Background.movePaneToBottom();
 		//sets up the scrollPane for the frogger game ( no scroll bars ect)
 		Background.setUpPane();

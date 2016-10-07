@@ -29,6 +29,6 @@ public class World {
 		if (pad >= 0)
 			frame.setSize(Background.getIconWidth() + pad, frame.getHeight());
 		else
-			throw new Exception("padding cant be less than zero");
+			throw new Exception("Whoops! Negative padding is a no-no.");
 	}
 }

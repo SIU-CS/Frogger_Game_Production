@@ -19,8 +19,12 @@ public class Board extends JPanel implements ActionListener {
 	 * auto generated
 	 */
 	private static final long serialVersionUID = 1L;
+	private Timer timer;
     private Frog frog;
     private Log log;
+
+    private final int DELAY = 10;
+
     public Board() {
 
         initBoard();
@@ -32,7 +36,9 @@ public class Board extends JPanel implements ActionListener {
         setBackground(Color.BLACK);
 
         frog = new Frog();
-        log = new Log(5);       
+        log = new Log(5);
+        timer = new Timer(DELAY, this);
+        timer.start();        
     }
     @Override
     public void paintComponent(Graphics g) {

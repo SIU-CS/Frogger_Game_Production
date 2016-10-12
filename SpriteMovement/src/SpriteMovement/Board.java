@@ -15,12 +15,12 @@ import javax.swing.Timer;
 
 public class Board extends JPanel implements ActionListener {
 
-    private Timer timer;
+    /**
+	 * auto generated
+	 */
+	private static final long serialVersionUID = 1L;
     private Frog frog;
     private Log log;
-
-    private final int DELAY = 10;
-
     public Board() {
 
         initBoard();
@@ -32,9 +32,7 @@ public class Board extends JPanel implements ActionListener {
         setBackground(Color.BLACK);
 
         frog = new Frog();
-        log = new Log(5);
-        timer = new Timer(DELAY, this);
-        timer.start();        
+        log = new Log(5);       
     }
     @Override
     public void paintComponent(Graphics g) {

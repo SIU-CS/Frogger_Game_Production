@@ -20,7 +20,9 @@ public class Frog {
         x = 40;
         y = 530;        
     }
-
+    public void reInit(){
+    	initCraft();
+    }
     public int getX() {
         return x;
     }

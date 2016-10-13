@@ -5,12 +5,13 @@ import javax.swing.ImageIcon;
 
 public class Log {
     private int x;
-    private final int y=300;
+    private int y;
     private Image image;
     private int speed;
     
 
-    public Log(int speed) {
+    public Log(int speed, int y) {
+    	this.y=y;
         this.speed=speed;
         initCraft();
     }
@@ -18,12 +19,12 @@ public class Log {
         
         ImageIcon ii = new ImageIcon("src/log.png");
         image = ii.getImage();
-        x = 0; 
+        x = -100; 
     }
     public void move() {
         if(x<800)
         	x += speed;
-        else x=0;
+        else x=-200;
     }
     public void setX(int x){
     	this.x=x;

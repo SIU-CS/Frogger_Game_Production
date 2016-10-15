@@ -1,25 +1,21 @@
 package SpriteMovement;
 
-import java.awt.Image;
-import javax.swing.ImageIcon;
+import java.awt.Rectangle;
+import java.util.Random;
 
-public class Log {
-    private int x;
-    private int y;
-    private Image image;
-    private int speed;
+public class Log extends SpriteObject{
+    private int x=-100;
+    Random rand=new Random();
+    private int speed = rand.nextInt(5)+3;
     
 
-    public Log(int speed, int y) {
-    	this.y=y;
-        this.speed=speed;
+    public Log(int y) {
+    	super(y);
         initCraft();
     }
     private void initCraft() {
-        
-        ImageIcon ii = new ImageIcon("src/log.png");
-        image = ii.getImage();
-        x = -100; 
+        loadImage("src/log.png");
+        getImageDimensions();
     }
     public void move() {
         if(x<800)
@@ -29,14 +25,14 @@ public class Log {
     public void setX(int x){
     	this.x=x;
     }
-    public int getX() {
-        return x;
+    public int getX(){
+    	return x;
     }
-    public int getY() {
-        return y;
-    }    
-    public Image getImage() {
-        return image;
+    public int getY(){
+    	return y;
     }
+    public Rectangle getBounds(){
+  		return new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
+  	}
 }
 

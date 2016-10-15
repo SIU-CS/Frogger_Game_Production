@@ -1,19 +1,22 @@
 package SpriteMovement;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
-public class Frog {
-    private int x;
-    private int y;
+public class Frog extends SpriteObject{
+    private int x=40;
+    private int y=530;
     private Image image;
-
-    public Frog() {
-        
-        initCraft();
+    
+    public Frog(int y){
+    	super(y);
+    	initFrog();
     }
     
-    private void initCraft() {
+    private void initFrog() {
         
         ImageIcon ii = new ImageIcon("src/frog.png");
         image = ii.getImage();
@@ -21,7 +24,7 @@ public class Frog {
         y = 530;        
     }
     public void reInit(){
-    	initCraft();
+    	initFrog();
     }
     public int getX() {
         return x;
@@ -34,7 +37,9 @@ public class Frog {
     public Image getImage() {
         return image;
     }
-
+    public Rectangle getBounds(){
+		return new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
+	}
     public void keyPressed(KeyEvent e) {
 
         int key = e.getKeyCode();

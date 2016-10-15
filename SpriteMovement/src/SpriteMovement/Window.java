@@ -13,8 +13,9 @@ public class Window extends JFrame{
         
         setSize(800, 600);
         setResizable(false);
-        setTitle("Moving sprite");
+        setTitle("Frogger");
         setLocationRelativeTo(null);
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

@@ -1,17 +1,17 @@
-package SpriteMovement;
+package froggerGame;
 
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
-public class Window extends JFrame{
+public class Window extends JFrame implements Constants{
 	public Window() {
 	        initUI();
 	    }
     private void initUI() {
         add(new Board());
         
-        setSize(800, 600);
+        setSize(BOARD_WIDTH, BOARD_HEIGHT);
         setResizable(false);
         setTitle("Frogger");
         setLocationRelativeTo(null);

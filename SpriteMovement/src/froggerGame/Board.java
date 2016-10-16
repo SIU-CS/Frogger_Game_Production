@@ -1,4 +1,5 @@
-package SpriteMovement;
+package froggerGame;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,8 +15,7 @@ import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
-public class Board extends JPanel implements ActionListener {
+public class Board extends JPanel implements ActionListener, Constants {
 
     /**
 	 * auto generated
@@ -24,48 +24,47 @@ public class Board extends JPanel implements ActionListener {
 	private Timer timer;
 	protected ArrayList<Log> logs;
 	protected final int[] LOG_POSITIONS={50,200,325,450};
-	Frog frog;
+	Player frog;
 	Log log;
 	Log log2;
 	Log log3;
-
-    private final int DELAY = 10;
 
     public Board() {
         initBoard();
         initObjects();
     }
-    Random rand = new Random();
+    
     private void initBoard() {
         addKeyListener(new TAdapter());
         setFocusable(true);
         setBackground(Color.BLACK);
-        frog = new Frog(530);
-//        log = new Log(350);
-//        log2 = new Log(200);
-//        log3 = new Log(50);
+        frog = new Player();
         timer = new Timer(DELAY, this);
         timer.start();    
     }
+    
     private void initObjects(){
     	logs = new ArrayList<>();
     	for(int i=0;i<LOG_POSITIONS.length;i++){
-    		logs.add(new Log(LOG_POSITIONS[i]));
+    		logs.add(new Log(LOG_POSITIONS[i], true));
     	}
     }
+    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawObjects(g);
         Toolkit.getDefaultToolkit().sync();
     }
+    
     private void drawObjects(Graphics g){
     	Graphics2D g2d = (Graphics2D) g;
-    	g2d.drawImage(frog.getImage(), frog.getX(), frog.getY(), this);
+    	g2d.drawImage(frog.getSprite(), frog.getX(), frog.getY(), this);
     	for(Log log : logs){
-    		g2d.drawImage(log.getImage(), log.getX(), log.getY(), this);
+    		g2d.drawImage(log.getSprite(), log.getX(), log.getY(), this);
     	}
     }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
     	for(Log log : logs){
@@ -74,6 +73,7 @@ public class Board extends JPanel implements ActionListener {
     	collision_Detection();
         repaint();
     }
+    
     public void collision_Detection(){
     	Rectangle frog_rec = frog.getBounds();
     	for(Log log : logs){
@@ -84,6 +84,7 @@ public class Board extends JPanel implements ActionListener {
     		}
     	}
     }
+    
     private class TAdapter extends KeyAdapter {
 
         @Override

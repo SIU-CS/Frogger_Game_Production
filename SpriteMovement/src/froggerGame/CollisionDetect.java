@@ -1,4 +1,4 @@
-package SpriteMovement;
+package froggerGame;
 
 import java.awt.Image;
 import java.awt.Rectangle;

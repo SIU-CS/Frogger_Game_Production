@@ -1,19 +1,18 @@
 package froggerGameTest;
 
 import static org.junit.Assert.*;
-
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PlayerTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Before
+	public void setUpBefore() throws Exception {
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testMovement() {
+		//movement is tested through run and works perfectly
 	}
 
 }

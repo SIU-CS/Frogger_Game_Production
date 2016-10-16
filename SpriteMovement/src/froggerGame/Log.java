@@ -9,9 +9,9 @@ public class Log extends Dynamic{
     public Log(int spawningY, boolean moveRight) {
     	setSpawn(spawningY);
     	setMoveRight(moveRight);
-        initCraft();
+        initLog();
     }
-    private void initCraft() {
+    private void initLog() {
     	ImageIcon ii = new ImageIcon(log);
 		setSprite(ii.getImage());
     }

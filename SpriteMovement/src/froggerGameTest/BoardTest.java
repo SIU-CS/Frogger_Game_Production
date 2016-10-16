@@ -12,8 +12,9 @@ public class BoardTest {
 	}
 
 	@Test
-	public void testInitBoard() {
-		
+	public void testBoard() {
+		//board is not an official board, only a testing board, no test cases will be done
+		//until an official board is complete.
 	}
 
 }

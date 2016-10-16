@@ -19,7 +19,7 @@ public class Entity implements Constants{
 	
    
 	public Entity() {
-      setVisible(true);
+      this.setVisible(true);
 	}
 	
 	public Rectangle getBounds(){

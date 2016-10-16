@@ -12,49 +12,66 @@ public class Dynamic extends Entity {
    //The coordinates in which the hostile entity will spawn at once it is initiated.
    protected int spawningX; 
    protected int spawningY;
-   
-   //modification of the speed of translation.
-   protected int modifier = 1;
-   protected boolean moveRight;
-   	
-	public Dynamic(){
+ 
+   protected int modifier = 1; //modification of the speed of translation.
+   protected boolean moveRight; //whether the object is moving from left of screen or right
+
+	public void setModifier(int modifier){
+		this.modifier = modifier;
+	}
 	
+	public int getSpeed(){
+		return translation*modifier;
 	}
 	
     //sets a continuous spawn for the object created.
 	//this spawn should determine what position should be set when the object meets the end of screen.
-	//this should init once and on first creation of object, it sets x and y making one less step for object.
+	//this should initialize once and on first creation of object, it sets y making one less step for the object.
    public void setSpawn(int spawningY){	
       this.spawningY = spawningY;
       setY(spawningY);
    }
    
    //which direction object will move on x-axis of screen
+   //as the direction an dynamic object is moving, determines where
+   //it needs to spawn, this method handles the spawning position in x-axis making one less step for the object.
    public void setMoveRight(boolean moveRight){
 	   this.moveRight = moveRight;
-	   if(moveRight){
-		   spawningX = -100;
+	   if(moveRight){ //from left to right
+		   spawningX = (-pardon);
 		   setX(spawningX);
 	   }
-	   else{
-		   spawningX = BOARD_WIDTH + 100;
+	   else{ //from right to left
+		   spawningX = BOARD_WIDTH + pardon;
 		   setX(spawningX);
 	   }
    }
    
+   public int getSpawningX(){
+	   return spawningX;
+   }
+   
+   public int getSpawningY(){
+	   return spawningY;
+   }
+   
+   public boolean getMoveRight(){
+	   return moveRight;
+   }
+   
    //moves object
    public void move(){
-	   int speed = translation*modifier;
+	   int speed = getSpeed();
 		   if(moveRight)
 			   if(checkBoundaries('x', (x+speed), pardon))
-				   x = spawningX;
+				   setX(spawningX);
 			   else
-				   x += speed;
+				   setX((getX()+speed));
 		   else
 			   if(checkBoundaries('x', (x-speed), pardon))
-				   x = spawningX;
+				   setX(spawningX);
 			   else
-				   x -= speed; 
+				   setX((getX()-speed));
 
    }
    

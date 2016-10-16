@@ -16,7 +16,7 @@ public class EntityTest {
 	static Image sprite;
 	
 	@Before
-	public void setUpBeforeClass() throws Exception {
+	public void setUpBefore() throws Exception {
 		sprite = ImageIO.read(new File("src/frog.png"));
 		e.setSprite(sprite);
 		e.setX(0);
@@ -52,7 +52,8 @@ public class EntityTest {
 		assertFalse(e.checkBoundaries('y', 100, 0));
 		//test an out of bounds object on x axis
 		assertTrue(e.checkBoundaries('x', -100, 0));
-		//test an out of bounds object with a pardon to inbounds
+		//test an out of bounds object with a pardon
+		//should be considered inbounds
 		assertFalse(e.checkBoundaries('x', -100, 100));
 		//test an out of bounds object on y axis
 		assertTrue(e.checkBoundaries('y', -100, 0));			

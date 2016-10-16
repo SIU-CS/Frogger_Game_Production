@@ -67,7 +67,7 @@ public class ScrollBoard extends JScrollPane implements AdjustmentListener{
 				bar.setValue(bar.getMinimum());
 	        	throw new Exception("bar at the top");
 	        }
-			if((bar.getValue() - far > bar.getMaximum())){
+			if((bar.getValue() + far > bar.getMaximum())){
 				bar.setValue(bar.getMaximum());
 				throw new Exception("bar at the bottom");
 			}
@@ -84,7 +84,7 @@ public class ScrollBoard extends JScrollPane implements AdjustmentListener{
 	        	throw new Exception("bar at the top");
 	        }
 			else if (bar.getValue() + far > bar.getMaximum()){
-				scroll(bar.getMaximum()- bar.getValue(), speed);
+				scroll(bar.getMaximum()+ bar.getValue(), speed);
 	        	throw new Exception("bar at the bottom");
 			}
 			else

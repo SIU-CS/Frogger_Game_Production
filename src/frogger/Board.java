@@ -20,6 +20,7 @@ public class Board extends JPanel implements Runnable{
     private Frog frog;
     private Background background;
     private Log log;
+    private Log log1;
 	TAdapter key;
     public Board() {
 
@@ -37,13 +38,19 @@ public class Board extends JPanel implements Runnable{
         background = new Background();
         background.setImage("map.png");
         frog = new Frog(background.getMaxWidth()/2, background.getMaxHeight() -100);
+//        	log = new Log();
+//            log.initCraft(3, 7, 200 , true);
+//            //this thread is running by itself in an endless loop
+//            // this is so the log updates on its own
+//            Thread t = new Thread(log);
+//            t.start();
+//            log1 = new Log();
+//            log1.initCraft(3, 7, 300 , true);
+//            //this thread is running by itself in an endless loop
+//            // this is so the log updates on its own
+//            Thread t1 = new Thread(log1);
+//            t1.start();
         
-        log = new Log();
-        log.initCraft(3, 7, 200 , true);
-        //this thread is running by itself in an endless loop
-        // this is so the log updates on its own
-        Thread t = new Thread(log);
-        t.start();
         
         setPreferredSize(new Dimension(background.getMaxWidth(),background.getMaxHeight()) );
         //log = new Log(10, 40, 200 , true);
@@ -53,7 +60,8 @@ public class Board extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         background.drawBackground(g);
-        log.drawLog(g);
+//        log.drawLog(g);
+//        log1.drawLog(g);
         frog.drawFrog(g);
                 
         Toolkit.getDefaultToolkit().sync();

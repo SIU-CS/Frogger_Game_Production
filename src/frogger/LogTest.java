@@ -204,18 +204,8 @@ public class LogTest{
     }
 	 
 	 //*********************************************************
+	//Utilities
 	
-	//for testing purposes only
-	@Test
-	public void setUp_randomSpeedInitateTest()
-	{
-		int ranBottomWait = 3;
-		int ranTopWait = 10;
-		boolean srtRight = true;
-		int up = 100;
-		randomSpeedInitiateTest(ranBottomWait, ranTopWait, up, srtRight);
-	}
-
 	// has already been tested in randomSpeedInitate
 	// and constantSpeedInitiate
 	public void moveUp(int up){
@@ -238,6 +228,19 @@ public class LogTest{
 	        }
 	}
 	
+	//*********************************************************8
+	
+	//for testing purposes only
+	@Test
+	public void setUp_randomSpeedInitateTest()
+	{
+		int ranBottomWait = 3;
+		int ranTopWait = 10;
+		boolean srtRight = true;
+		int up = 100;
+		randomSpeedInitiateTest(ranBottomWait, ranTopWait, up, srtRight);
+	}
+
 	public void randomSpeedInitiateTest(int ranBottomWait, int ranTopWait, int up, boolean srtRight) {
 		this.srtRight = srtRight;
     	if (ranBottomWait > 0 && ranTopWait > ranBottomWait )

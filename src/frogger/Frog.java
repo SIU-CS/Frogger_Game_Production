@@ -18,7 +18,7 @@ public class Frog {
     
     private void initCraft(int x, int y) {
         
-        ImageIcon ii = new ImageIcon("frog.png");
+        ImageIcon ii = new ImageIcon(GameTools.frogImagePath);
         image = ii.getImage();
         
         this.x = x;

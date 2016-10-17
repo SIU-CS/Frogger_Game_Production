@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import java.util.Random;
 import java.awt.Rectangle;
 
-public class Log{
+public class Car{
     private int x=100;
     protected int y;
     protected Image image;
@@ -16,13 +16,15 @@ public class Log{
     private int speed = rand.nextInt(5)+3;
     
 
-    public Log(int y) {
+    public Car(int y) {
     	this.y=y;
         initCraft();
     }
     private void initCraft() {
-        ImageIcon ii = new ImageIcon("log.png");
+        ImageIcon ii = new ImageIcon(GameTools.carImagePath);
+        
         image = ii.getImage();
+        
     }
     public void move() {
         if(x<800)

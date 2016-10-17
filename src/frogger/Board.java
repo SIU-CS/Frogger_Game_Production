@@ -15,17 +15,14 @@ import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import SpriteMovement.Log;
-
-
 public class Board extends JPanel implements Runnable, ActionListener{
 
     /**
 	 * auto generated
 	 */
 	private static final long serialVersionUID = 1L;
-	protected final int[] LOG_POSITIONS={845,930,1050,1145};
-	protected ArrayList<Log> logs;
+	protected final int[] CAR_POSITIONS={845,930,1050,1145};
+	protected ArrayList<Car> cars;
     private Frog frog;
     private Timer timer;
     private final int DELAY=10;
@@ -47,7 +44,7 @@ public class Board extends JPanel implements Runnable, ActionListener{
         timer.start();
         
         background = new Background();
-        background.setImage("map.png");
+        background.setImage(GameTools.backgroundImagePath);
         frog = new Frog(64*3, background.getMaxHeight() -64);
         //this thread is running by itself in an endless loop
         // this is so the log updates on its own
@@ -57,17 +54,17 @@ public class Board extends JPanel implements Runnable, ActionListener{
         
     }
     private void initObjects(){
-    	logs = new ArrayList<>();
-    	for(int i=0;i<LOG_POSITIONS.length;i++){
-    		logs.add(new Log(LOG_POSITIONS[i]));
+    	cars = new ArrayList<>();
+    	for(int i=0;i<CAR_POSITIONS.length;i++){
+    		cars.add(new Car(CAR_POSITIONS[i]));
     	}
     }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         background.drawBackground(g);
-        for(Log log : logs){
-    		log.drawLog(g);
+        for(Car car : cars){
+    		car.drawLog(g);
     	}
         frog.drawFrog(g);
         
@@ -81,16 +78,16 @@ public class Board extends JPanel implements Runnable, ActionListener{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-    	for(Log log : logs){
-    		log.move();
+    	for(Car car : cars){
+    		car.move();
     	}
     	collision_Detection();
         repaint();
     }
     public void collision_Detection(){
     	Rectangle frog_rec = frog.getBounds();
-    	for(Log log : logs){
-    		Rectangle log_rec = log.getBounds();
+    	for(Car car : cars){
+    		Rectangle log_rec = car.getBounds();
     		if(frog_rec.intersects(log_rec)){
     			frog.setX(64*3);
     			frog.setY(background.getMaxHeight()-64);
@@ -113,5 +110,10 @@ public class Board extends JPanel implements Runnable, ActionListener{
 	        GameEngine.keyReleased(e);
 	    }
   	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -35,7 +35,7 @@ public class LogTest{
 
 	//just impliments initCraft
    public LogTest(){
-
+	   
     }
    
 	 
@@ -45,19 +45,21 @@ public class LogTest{
 	      map = "map.png";
 	      image = null;
 		  randWaitTimeBool = true;
-		  ranTopWait = 2;
-		  ranBottomWait = 1;
+		  ranTopWait = 1;
+		  ranBottomWait = 3;
 		  srtRight = true;
-		  imageWidth = 30;
-		  waitTime = 5;
+		  imageWidth = -10;
+		  waitTime = 0;
+		  //handled by an outside source
 		  boardWidth = 300;
+		  
 		  imageHeight = 400;
 		  y = imageHeight;
 		  
 		  //the number of times autoLog is run
 		  //this is an endless function
 		  //put here for testing only
-		  times = 10;
+		  times = 1;
 	   } 
 	 
 	 @After
@@ -80,14 +82,9 @@ public class LogTest{
 		assertEquals("failure - images are not equal", image, new ImageIcon(map).getImage());
     } 
 
-	
-	  
-	  //*********************************************************
-	  //this is for testing, since it is an endless loop this is the number of times it will run
-	  // before the test
-	   
 
-	 
+	  //*********************************************************
+
 	 //moves the log automatically
 	 //at either a variable speed or a constant speed based on the boolean randomBool
 	//resets when off the screen
@@ -140,12 +137,43 @@ public class LogTest{
 		assertTrue("The Value of 'x' is " + x + " And the wait time is " + waitTime
 				,x >= -(imageWidth) && x <= boardWidth && waitTime > 0);
 	}
-	
+	//added test on second fail phase
+	@Test
+	public void randomNumTest(){
+		int count = 0;
+		int test = 0;
+		while(count < 10)
+		{
+		ranBottomWait = 3;
+		ranTopWait = -10;
+		//processing the go through so I can test the value
+		if(ranBottomWait <= 0)
+			test = waitTimeDefault;
+		else if (ranTopWait < ranBottomWait){
+			int temp = ranTopWait;
+			ranTopWait = ranBottomWait;
+			ranBottomWait = temp;
+		}
+		test = randomNum();
+		
+		assertTrue("test value failed, the value is " + test +
+				" should be between " + ranBottomWait + " and " +
+				ranTopWait,(test >= ranBottomWait && test < ranTopWait) || test == waitTimeDefault);
+		count++;
+		}
+	}
+	//for use inside the AutoLog function
 	public int randomNum(){
 		Random rand = new Random();
 		rand.setSeed(System.currentTimeMillis());
+		if(ranBottomWait <= 0)
+			return waitTimeDefault;
+		else if (ranTopWait < ranBottomWait){
+			int temp = ranTopWait;
+			ranTopWait = ranBottomWait;
+			ranBottomWait = temp;
+		}
 		return rand.nextInt((ranTopWait - ranBottomWait) + 1) + ranBottomWait;
-		
 	}
 	
 	 //********************************************
@@ -155,7 +183,7 @@ public class LogTest{
 	public void setUp_constantSpeedInitateTest()
 	{
 		int waitTime = 30;
-		int up = 100;
+		int up = -2000;
 		constantSpeedInitiateTest(waitTime, up);
 	}
 	
@@ -165,9 +193,17 @@ public class LogTest{
 	    	else{
 	    		this.waitTime = waitTimeDefault;
 	    	}
+	        if (up < 0)
+	        	up *= -1;
+	        if( this.y + up > imageHeight)
+	        	this.y = imageHeight;
 	        
+	        else if(this.y - up<0){
+	        	this.y = 0;
+	        }
+	        else
+	        	this.y -= up;
 	        
-	        this.y -= up;
 	        if (srtRight){
 	        	x = boardWidth;
 	        }
@@ -203,12 +239,21 @@ public class LogTest{
     	else
     		waitTime = waitTimeDefault;
 
-        this.y -= up;
+    	 if (up < 0)
+	        	up *= -1;
+        if( this.y + up > imageHeight)
+        	this.y = imageHeight;
+        else if(this.y - up<0)
+        	this.y = 0;
+        else
+        	this.y -= up;
+	        
+	        
         if (srtRight){
-        	x = GameTools.boardWidth;
+        	x = boardWidth;
         }
         else{
-        	x = -ii.getIconWidth();
+        	x = -imageWidth;
         }
         assertTrue(x <= boardWidth && x >= -imageWidth && y >= 0 && y <= imageHeight &&
         		((this.ranTopWait > (this.ranBottomWait) && this.ranBottomWait > 0) || waitTime > 0));

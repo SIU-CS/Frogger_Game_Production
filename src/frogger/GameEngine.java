@@ -1,23 +1,29 @@
 package frogger;
 
+import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 
 public class GameEngine{
 	
 	private static Window ex;
-	private static ScrollBoard bar;
+	public static ScrollBoard bar;
 	private static Board gameBoard;
 
 	public static void main(String[] args) {
                 
-                ex = new Window();
-                ex.setVisible(true);
+                
                 //these are the items so we can access our generated ScrollContainer
                 //and out Board container
-                bar = ex.getScrollBar();
-                gameBoard = ex.getBoard();
-                Thread t = new Thread(gameBoard);
-                t.start();
+                
+                EventQueue.invokeLater(new Runnable(){
+                	@Override
+                	public void run(){
+                		ex = new Window();
+                        ex.setVisible(true);
+                        bar = ex.getScrollBar();
+                        gameBoard = ex.getBoard();
+                	}
+                });
             }
 
 	public static void keyPressed(KeyEvent e) {
@@ -25,19 +31,19 @@ public class GameEngine{
 		int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            gameBoard.getFrog().moveFrogHorizontal(-50);
+            gameBoard.getFrog().moveFrogHorizontal(-64);
             
             System.out.println("LEFT");
         }
 
         else if (key == KeyEvent.VK_RIGHT) {
-        	gameBoard.getFrog().moveFrogHorizontal(50);
+        	gameBoard.getFrog().moveFrogHorizontal(64);
         	
         	System.out.println("RIGHT");
         }
 
         else if (key == KeyEvent.VK_UP) {
-        	gameBoard.getFrog().moveFrogVertical(50);
+        	gameBoard.getFrog().moveFrogVertical(64);
         	try {
 				bar.scroll(50);
 			} catch (Exception e1) {
@@ -49,7 +55,7 @@ public class GameEngine{
         }
 
         else if (key == KeyEvent.VK_DOWN) {
-        	gameBoard.getFrog().moveFrogVertical(-50);
+        	gameBoard.getFrog().moveFrogVertical(-64);
         	try {
         		bar.scroll(-50);
 			} catch (Exception e1) {
@@ -70,9 +76,6 @@ public class GameEngine{
         else if (key == KeyEvent.VK_DOWN) {
         	
         }
-	}
-	public static void update(){
-		gameBoard.update();
 	}
 }
 

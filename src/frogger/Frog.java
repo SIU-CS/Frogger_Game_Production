@@ -3,6 +3,7 @@ package frogger;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
@@ -12,13 +13,12 @@ public class Frog {
     private Image image;
 
     public Frog(int strtWidth, int strtHeight) {
-        
         initCraft(strtWidth,strtHeight);
     }
     
     private void initCraft(int x, int y) {
         
-        ImageIcon ii = new ImageIcon("src/frog.png");
+        ImageIcon ii = new ImageIcon("frog.png");
         image = ii.getImage();
         
         this.x = x;
@@ -33,11 +33,11 @@ public class Frog {
         return y;
     }
     
-    private void setX(int x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    private void setY(int y) {
+    public void setY(int y) {
         this.y = y;
     }
 
@@ -49,7 +49,11 @@ public class Frog {
     	Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(getImage(), getX(), getY(), null);        
     }
-   //neggative is left
+    public Rectangle getBounds(){
+		return new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
+
+    }
+   //negative is left
    //positive is right
    public void moveFrogHorizontal(int distance){
 	   setX(getX()+distance);

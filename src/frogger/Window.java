@@ -17,7 +17,7 @@ public class Window extends JFrame{
         board = scrlBar.getBoard();
         setSize(GameTools.boardWidth, GameTools.boardHeight);
         setResizable(false);
-        setTitle("Moving sprite");
+        setTitle(" sprite");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

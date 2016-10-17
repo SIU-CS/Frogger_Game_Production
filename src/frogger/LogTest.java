@@ -20,7 +20,6 @@ public class LogTest{
     private int x;
     private int y;
     private Image image;
-    private ImageIcon ii;
     private int ranBottomWait;
     private int ranTopWait;
     private int waitTime;
@@ -122,14 +121,10 @@ public class LogTest{
 						e.printStackTrace();
 					}
 				}
-			//System.out.println("Here");
-			if (srtRight)
-				x= boardWidth;
-			else
-				x = (-imageWidth);
+			moveStartRight(srtRight);
+			
 			if(randWaitTimeBool)
 				waitTime = randomNum();
-			System.out.println(waitTime);
 			
 			//this is for testing
 			count++;
@@ -193,23 +188,10 @@ public class LogTest{
 	    	else{
 	    		this.waitTime = waitTimeDefault;
 	    	}
-	        if (up < 0)
-	        	up *= -1;
-	        if( this.y + up > imageHeight)
-	        	this.y = imageHeight;
+	        moveUp(up);
 	        
-	        else if(this.y - up<0){
-	        	this.y = 0;
-	        }
-	        else
-	        	this.y -= up;
+	        moveStartRight(srtRight);
 	        
-	        if (srtRight){
-	        	x = boardWidth;
-	        }
-	        else{
-	        	x = -imageWidth;
-	        }
 	        assertTrue(x <= boardWidth && x >= -imageWidth && y >= 0 && y <= imageHeight);
     }
 	 
@@ -225,6 +207,28 @@ public class LogTest{
 		int up = 100;
 		randomSpeedInitiateTest(ranBottomWait, ranTopWait, up, srtRight);
 	}
+
+	// has already been tested in randomSpeedInitate
+	// and constantSpeedInitiate
+	public void moveUp(int up){
+		if (up < 0)
+        	up *= -1;
+		if( this.y + up > imageHeight)
+			this.y = imageHeight;
+		else if(this.y - up<0)
+			this.y = 0;
+		else
+			this.y -= up;
+	}
+	
+	public void moveStartRight(boolean srtRight){
+		 if (srtRight){
+	        	x = boardWidth;
+	        }
+	        else{
+	        	x = -imageWidth;
+	        }
+	}
 	
 	public void randomSpeedInitiateTest(int ranBottomWait, int ranTopWait, int up, boolean srtRight) {
 		this.srtRight = srtRight;
@@ -239,22 +243,11 @@ public class LogTest{
     	else
     		waitTime = waitTimeDefault;
 
-    	 if (up < 0)
-	        	up *= -1;
-        if( this.y + up > imageHeight)
-        	this.y = imageHeight;
-        else if(this.y - up<0)
-        	this.y = 0;
-        else
-        	this.y -= up;
+    	 
+	    moveUp(up);
 	        
-	        
-        if (srtRight){
-        	x = boardWidth;
-        }
-        else{
-        	x = -imageWidth;
-        }
+	    moveStartRight(srtRight);
+	    
         assertTrue(x <= boardWidth && x >= -imageWidth && y >= 0 && y <= imageHeight &&
         		((this.ranTopWait > (this.ranBottomWait) && this.ranBottomWait > 0) || waitTime > 0));
     }  

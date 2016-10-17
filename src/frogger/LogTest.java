@@ -22,7 +22,7 @@ public class LogTest{
     private Image image;
     private int ranBottomWait;
     private int ranTopWait;
-    private int waitTime;
+    private int waitTime = waitTimeDefault;
     private boolean srtRight;
     private boolean randWaitTimeBool = false;
     //get from a separate function
@@ -41,12 +41,12 @@ public class LogTest{
 	 @Before
 	  public void setUp() { 
 		 
-	      map = "map.png";
-	      image = null;
-		  randWaitTimeBool = true;
-		  ranTopWait = 1;
+	      map = null;
+	      image = null ;
+		  randWaitTimeBool = false;
+		  ranTopWait = -10;
 		  ranBottomWait = 3;
-		  srtRight = true;
+		  srtRight = false;
 		  imageWidth = -10;
 		  waitTime = 0;
 		  //handled by an outside source
@@ -94,7 +94,6 @@ public class LogTest{
 		rand.setSeed(System.currentTimeMillis());
 		if (randWaitTimeBool){
 			waitTime = randomNum();
-			System.out.println(waitTime);
 		}
 		int count = 0;
 		while(count < times)
@@ -103,23 +102,30 @@ public class LogTest{
 				while(x > -imageWidth)
 				{
 					x -= 1;
-					try {
-						Thread.sleep(waitTime);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					if (waitTime > 0)
+					{
+						try {
+							Thread.sleep(waitTime);
+						} catch (InterruptedException e) {
+							System.out.println("Class Log, log cant wait, Error in"
+									+ "Thred.sleep(waitTime)");
+						}
 					}
 				}
 			else
-				while(x < GameTools.boardWidth)
+				while(x < boardWidth)
 				{
 					x += 1;
-					try {
-						Thread.sleep(waitTime);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					if (waitTime > 0)
+					{
+						try {
+							Thread.sleep(waitTime);
+						} catch (InterruptedException e) {
+							System.out.println("Class Log, log cant wait, Error in"
+									+ "Thred.sleep(waitTime)");
+						}
 					}
+					
 				}
 			moveStartRight(srtRight);
 			
@@ -130,8 +136,10 @@ public class LogTest{
 			count++;
 		}
 		assertTrue("The Value of 'x' is " + x + " And the wait time is " + waitTime
-				,x >= -(imageWidth) && x <= boardWidth && waitTime > 0);
+				,x >= -(imageWidth) && x <= boardWidth);
 	}
+
+
 	//added test on second fail phase
 	@Test
 	public void randomNumTest(){
@@ -243,7 +251,6 @@ public class LogTest{
     	else
     		waitTime = waitTimeDefault;
 
-    	 
 	    moveUp(up);
 	        
 	    moveStartRight(srtRight);

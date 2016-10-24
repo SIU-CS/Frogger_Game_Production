@@ -8,6 +8,9 @@ public class GameEngine{
 	private static Window ex;
 	public static ScrollBoard bar;
 	private static Board gameBoard;
+	private static long timeLastKeyPress;
+	// in milliseconds
+	private static int waitNextKeyPress = 200;
 
 	public static void main(String[] args) {
                 
@@ -29,23 +32,25 @@ public class GameEngine{
 	public static void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int key = e.getKeyCode();
-
+		if(System.currentTimeMillis() - timeLastKeyPress >  waitNextKeyPress)
+		{
         if (key == KeyEvent.VK_LEFT) {
-            gameBoard.getFrog().moveFrogHorizontal(-64);
+            gameBoard.getFrog().moveFrogHorizontal(false);
             
             System.out.println("LEFT");
         }
 
         else if (key == KeyEvent.VK_RIGHT) {
-        	gameBoard.getFrog().moveFrogHorizontal(64);
+        	gameBoard.getFrog().moveFrogHorizontal(true);
         	
         	System.out.println("RIGHT");
         }
 
         else if (key == KeyEvent.VK_UP) {
-        	gameBoard.getFrog().moveFrogVertical(64);
+        	gameBoard.getFrog().moveFrogVertical(true);
+
         	try {
-				bar.scroll(50);
+        		bar.scroll(GameTools.rowHeight);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -55,9 +60,9 @@ public class GameEngine{
         }
 
         else if (key == KeyEvent.VK_DOWN) {
-        	gameBoard.getFrog().moveFrogVertical(-64);
+        	gameBoard.getFrog().moveFrogVertical(false);
         	try {
-        		bar.scroll(-50);
+        		bar.scroll(-GameTools.rowHeight);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -65,6 +70,8 @@ public class GameEngine{
         	
         	System.out.println("DOWN");
         }
+        timeLastKeyPress = System.currentTimeMillis();
+		}
 	}
 	public static void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub

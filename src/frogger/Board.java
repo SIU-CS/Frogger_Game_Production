@@ -3,7 +3,6 @@ package frogger;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -12,63 +11,140 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 
 public class Board extends JPanel implements Runnable, ActionListener{
 
-    /**
-	 * auto generated
-	 */
+   
 	private static final long serialVersionUID = 1L;
-	protected final int[] CAR_POSITIONS={845,930,1050,1145};
+	
+	private ArrayList<Integer> CAR_POSITIONS = new ArrayList<Integer>();
+	private ArrayList<Integer> LOG_POSITIONS = new ArrayList<Integer>();
+	
 	protected ArrayList<Car> cars;
+	protected ArrayList<Log> logs;
+	protected ArrayList<LilyPad> lilypads;
     private Frog frog;
     private Timer timer;
-    private final int DELAY=10;
+    private final int DELAY=15;
     private Background background;
-
+    private Random rand;
 	TAdapter key;
     public Board() {
         initBoard();
         initObjects();
     }
-    Random rand = new Random();
+    
     private void initBoard() {
         setFocusable(true);
         setBackground(Color.BLACK);
+        //always place background first
+        //adds important information to GameTools
+        background = new Background();
+        background.setImage(GameTools.backgroundImagePath);
         //adds a key listener that send the presses to GameEngine
         key = new TAdapter();
         addKeyListener(key);
         timer = new Timer(DELAY, this);
         timer.start();
-        
-        background = new Background();
-        background.setImage(GameTools.backgroundImagePath);
-        frog = new Frog(64*3, background.getMaxHeight() -64);
-        //this thread is running by itself in an endless loop
-        // this is so the log updates on its own
-        
+
+        setUpMovables();
+
         setPreferredSize(new Dimension(background.getMaxWidth(),background.getMaxHeight()) );
-        //log = new Log(10, 40, 200 , true);
         
     }
+
+	public void setUpMovables() {
+		frog = new Frog((GameTools.columnWidth)*3,
+        		GameTools.boardImageLength -GameTools.rowHeight);
+		
+		int distRows = GameTools.rowHeight;
+        int count = GameTools.BOARD_POSITIONS.length -1;
+        int positionUp = 0;
+        while(count >= 0){
+        	int type = GameTools.BOARD_POSITIONS[count];
+        	if (type == 1){
+        			CAR_POSITIONS.add(positionUp);
+        	}
+        	else if (type == 2){
+        		LOG_POSITIONS.add(positionUp);
+        	}
+        	else if (type == 3){
+        		//sets up the lily pads
+        		lilypads = new ArrayList<>();
+        		int numCols = GameTools.numCols;
+        		//this is if we have even rows
+        		if(numCols % 2 == 0)
+        		{
+        			numCols = GameTools.numCols/2;
+        			while(numCols > 0){
+        				lilypads.add(new LilyPad((numCols - 1) * GameTools.columnWidth, positionUp));
+        				numCols -= 2;
+        			}
+        			numCols = GameTools.numCols/2;
+        			while(numCols < GameTools.numCols){
+        				lilypads.add(new LilyPad((numCols) * GameTools.columnWidth, positionUp));
+        				numCols += 2;
+        			}
+        		}
+        		//this is if we have odd rows
+        		else{
+        			numCols--;
+        			while(numCols > 0){
+        				lilypads.add(new LilyPad((numCols - 1) * GameTools.columnWidth, positionUp));
+        				numCols -= 2;
+        			}
+        		}
+        			
+        	}
+        	positionUp += distRows;
+        	count--;
+        }
+        //sets up the lily pads at the end
+	}
     private void initObjects(){
+    	//sets all cars on the screen and adds them to the array cars
+    	//random number determines if they go right or left
+    	logs = new ArrayList<>();
+    	for(int i=0;i<LOG_POSITIONS.size();i++){
+    		rand = new Random();
+    		boolean temp = rand.nextBoolean();
+    		logs.add(new Log(LOG_POSITIONS.get(i),temp));
+    	}
+    	
     	cars = new ArrayList<>();
-    	for(int i=0;i<CAR_POSITIONS.length;i++){
-    		cars.add(new Car(CAR_POSITIONS[i]));
+    	for(int i=0;i<CAR_POSITIONS.size();i++){
+    		rand = new Random();
+    		boolean temp = rand.nextBoolean();
+    		cars.add(new Car(CAR_POSITIONS.get(i),temp));
     	}
     }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         background.drawBackground(g);
-        for(Car car : cars){
-    		car.drawLog(g);
+        for(Log log : logs){
+    		log.drawLog(g);
     	}
+        for(LilyPad lilypad : lilypads){
+        	lilypad.drawLilyPad(g);
+        }
         frog.drawFrog(g);
-        
+        for(Car car : cars){
+    		car.drawCar(g);
+    	}
+
         Toolkit.getDefaultToolkit().sync();
+    }
+    public void paintComponentEnd(Graphics g){
+    	super.paintComponent(g);
+    	
     }
     public Frog getFrog(){
     	return frog;
@@ -80,24 +156,64 @@ public class Board extends JPanel implements Runnable, ActionListener{
     public void actionPerformed(ActionEvent e) {
     	for(Car car : cars){
     		car.move();
+    		collision_Detection(car);
+    		repaint();
     	}
-    	collision_Detection();
-        repaint();
+    	for(Log log : logs){
+    		log.move();
+    		collision_Detection(log);
+    		repaint();
+    	}
+    	for(LilyPad lilypad : lilypads){
+    		collision_Detection(lilypad);
+    		repaint();
+    	}
     }
-    public void collision_Detection(){
+    //for car
+    public void collision_Detection(Car car){
     	Rectangle frog_rec = frog.getBounds();
-    	for(Car car : cars){
-    		Rectangle log_rec = car.getBounds();
+		Rectangle car_rec =  car.getBounds();
+		if(frog_rec.intersects(car_rec)){
+			//make you lose sign then reset!
+			
+			//what happens when you run into a car
+			frog.resetToStart();
+			try {
+				GameEngine.bar.scroll(-background.getMaxHeight());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    }
+    //for log
+    public void collision_Detection(Log log){
+    	Rectangle frog_rec = frog.getBounds();
+    		Rectangle log_rec =  log.getBounds();
     		if(frog_rec.intersects(log_rec)){
-    			frog.setX(64*3);
-    			frog.setY(background.getMaxHeight()-64);
+    			//what happens when you run into a log
+    			frog.jumpOnLog(log);
+    	}
+    }
+    //for lilypad
+    public void collision_Detection(LilyPad lilypad){
+    	Rectangle frog_rec = frog.getBounds();
+    		Rectangle lilypad_rec =  lilypad.getBounds();
+    		if(frog_rec.intersects(lilypad_rec)){
+    			//make you win sign, then reset
+    			JOptionPane speak = new JOptionPane();
+    			speak.setBackground(Color.RED);
+    			speak.setMessage("You Win!");
+    			speak.createDialog(this, "Winner");
+    			speak.setVisible(true);
+    			//what happens when you run into a lilypad
+    			frog.resetToStart();
     			try {
 					GameEngine.bar.scroll(-background.getMaxHeight());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-    		}
     	}
     }
     private class TAdapter extends KeyAdapter {

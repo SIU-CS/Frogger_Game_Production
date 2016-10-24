@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import java.util.Random;
 import java.awt.Rectangle;
 
-public class Car{
+public class Log{
     private int x=100;
     private int y;
     protected Image image;
@@ -18,7 +18,7 @@ public class Car{
     private int speed = rand.nextInt(3)+1;
     
 
-    public Car(int y, boolean moveRight) {
+    public Log(int y, boolean moveRight) {
     	this.moveRight = moveRight;
     	this.y=y;
         initCraft();
@@ -29,7 +29,7 @@ public class Car{
         y += (GameTools.rowHeight - ii.getIconHeight())/2;
     }
     private void initCraft() {
-        ii = new ImageIcon(GameTools.carImagePath);
+        ii = new ImageIcon(GameTools.logImagePath);
         
         image = ii.getImage();
         
@@ -60,7 +60,7 @@ public class Car{
     public Image getImage(){
     	return image;
     }
-	public void drawCar(Graphics g) {
+	public void drawLog(Graphics g) {
         
     	Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(getImage(), getX(), getY(), null);        
@@ -68,4 +68,7 @@ public class Car{
     public Rectangle getBounds(){
   		return new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
   	}
+	public ImageIcon getImageIcon() {
+		return ii;
+	}
 }

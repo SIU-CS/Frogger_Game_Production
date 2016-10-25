@@ -10,11 +10,9 @@ public class GameEngine{
 	private static Board gameBoard;
 	private static long timeLastKeyPress;
 	// in milliseconds
-	private static int waitNextKeyPress = 200;
+	private static int waitNextKeyPress = 150;
 
 	public static void main(String[] args) {
-                
-                
                 //these are the items so we can access our generated ScrollContainer
                 //and out Board container
                 
@@ -61,7 +59,6 @@ public class GameEngine{
 
         else if (key == KeyEvent.VK_DOWN) {
         	gameBoard.getFrog().moveFrogVertical(false);
-        	
         	try {
         		bar.scroll(-GameTools.rowHeight);
 			} catch (Exception e1) {

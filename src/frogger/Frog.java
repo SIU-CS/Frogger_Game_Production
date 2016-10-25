@@ -16,7 +16,7 @@ public class Frog {
     private ImageIcon ii;
     private boolean jumpedOnLog = false;
     //used in the detection of you hitting the water
-    private long timer;
+    private long lastLogHitTimer;
 
     public Frog(int strtWidth, int strtHeight) {
     	startX = strtWidth;
@@ -127,17 +127,24 @@ public class Frog {
 		int logY = log.getY();
 		ImageIcon ii = log.getImageIcon();
 		y = logY;
-		x =logX + (ii.getIconWidth()/2);
+		int iwidth = ii.getIconWidth();
+		System.out.println(x + " " + logX + " " + iwidth);
+		if(x < logX + ii.getIconWidth()/2)
+			x = logX;
+		else
+			x =logX + (ii.getIconWidth() - this.ii.getIconWidth());
 		jumpedOnLog = true;
-		timer = System.currentTimeMillis();
+		//this is for timer since last log hit, to check if you need to reset
+		lastLogHitTimer = System.currentTimeMillis();
+		//retruns false if you run off the the screen
 		if(x + this.ii.getIconWidth() < 0 || x > GameTools.boardWidth){
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	public void checkWaterHit() {
-		 if(y < GameTools.numWaterSquares * GameTools.rowHeight && System.currentTimeMillis() - timer > 100)
+		 if(y < GameTools.numWaterSquares * GameTools.rowHeight && System.currentTimeMillis() - lastLogHitTimer > 100)
 			   GameEngine.gameLoseSequence();
 		
 	}

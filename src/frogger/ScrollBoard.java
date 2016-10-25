@@ -75,6 +75,20 @@ public class ScrollBoard extends JScrollPane implements AdjustmentListener{
 				bar.setValue(bar.getValue()-far);
 			}
 		}
+		public void scrollTo(int spot) throws Exception{
+			
+			if (bar.getValue() - spot < bar.getMinimum()){
+				bar.setValue(bar.getMinimum());
+	        	throw new Exception("bar at the top");
+	        }
+			if((bar.getValue() - spot > bar.getMaximum())){
+				bar.setValue(bar.getMaximum());
+				throw new Exception("bar at the bottom");
+			}
+			else{
+				bar.setValue(spot);
+			}
+		}
 		//neggative is down
 		//positive is up
 		public void scrollSmooth(int far, int speed) throws Exception{

@@ -183,7 +183,7 @@ public class Board extends JPanel implements Runnable, ActionListener{
     		if(frog_rec.intersects(log_rec)){
     			//what happens when you run into a log
     			//if you run off the screen you lose
-    			if(frog.jumpOnLog(log))
+    			if(!frog.jumpOnLog(log))
     				GameEngine.gameLoseSequence();
     	}
     }

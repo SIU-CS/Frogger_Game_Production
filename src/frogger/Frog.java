@@ -39,12 +39,10 @@ public class Frog {
     }
     private void moveBackToRow(){
     	//centers the image on the square
-    	if(x % GameTools.columnWidth != 0){
     		if(x % GameTools.columnWidth > GameTools.columnWidth/2)
     			x += x % GameTools.columnWidth;
     		else
     			x -= x % GameTools.columnWidth;
-    	}
     	recenterImage();
     }
 
@@ -82,10 +80,6 @@ public class Frog {
     }
    
    public void moveFrogHorizontal(boolean right){
-	   if(jumpedOnLog){
-		   moveBackToRow();
-		   jumpedOnLog = false;
-	   }
 	   if (right){
 		   int tempRight = getX() + (GameTools.columnWidth);
 		   if(tempRight < GameTools.boardWidth){
@@ -128,7 +122,6 @@ public class Frog {
 		ImageIcon ii = log.getImageIcon();
 		y = logY;
 		int iwidth = ii.getIconWidth();
-		System.out.println(x + " " + logX + " " + iwidth);
 		if(x < logX + ii.getIconWidth()/2)
 			x = logX;
 		else
@@ -144,7 +137,7 @@ public class Frog {
 	}
 
 	public void checkWaterHit() {
-		 if(y < GameTools.numWaterSquares * GameTools.rowHeight && System.currentTimeMillis() - lastLogHitTimer > 100)
+		 if(y < GameTools.numWaterSquares * GameTools.rowHeight && y > GameTools.rowHeight && System.currentTimeMillis() - lastLogHitTimer > 100)
 			   GameEngine.gameLoseSequence();
 		
 	}

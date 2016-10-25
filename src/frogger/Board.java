@@ -57,7 +57,7 @@ public class Board extends JPanel implements Runnable, ActionListener{
     }
 
 	public void setUpMovables() {
-		frog = new Frog((GameTools.columnWidth)*3,
+		frog = new Frog((GameTools.columnWidth)*GameTools.numCols/2,
         		GameTools.boardImageLength -GameTools.rowHeight);
 		
 		int distRows = GameTools.rowHeight;
@@ -72,37 +72,40 @@ public class Board extends JPanel implements Runnable, ActionListener{
         		LOG_POSITIONS.add(positionUp);
         	}
         	else if (type == 3){
-        		//sets up the lily pads
-        		lilypads = new ArrayList<>();
-        		int numCols = GameTools.numCols;
-        		//this is if we have even rows
-        		if(numCols % 2 == 0)
-        		{
-        			numCols = GameTools.numCols/2;
-        			while(numCols > 0){
-        				lilypads.add(new LilyPad((numCols - 1) * GameTools.columnWidth, positionUp));
-        				numCols -= 2;
-        			}
-        			numCols = GameTools.numCols/2;
-        			while(numCols < GameTools.numCols){
-        				lilypads.add(new LilyPad((numCols) * GameTools.columnWidth, positionUp));
-        				numCols += 2;
-        			}
-        		}
-        		//this is if we have odd rows
-        		else{
-        			numCols--;
-        			while(numCols > 0){
-        				lilypads.add(new LilyPad((numCols - 1) * GameTools.columnWidth, positionUp));
-        				numCols -= 2;
-        			}
-        		}
-        			
+        		setUpLilyPads(positionUp);
         	}
         	positionUp += distRows;
         	count--;
         }
         //sets up the lily pads at the end
+	}
+
+	public void setUpLilyPads(int positionUp) {
+		//sets up the lily pads
+		lilypads = new ArrayList<>();
+		int numCols = GameTools.numCols;
+		//this is if we have even rows
+		if(numCols % 2 == 0)
+		{
+			numCols = GameTools.numCols/2;
+			while(numCols > 0){
+				lilypads.add(new LilyPad((numCols - 1) * GameTools.columnWidth, positionUp));
+				numCols -= 2;
+			}
+			numCols = GameTools.numCols/2;
+			while(numCols < GameTools.numCols){
+				lilypads.add(new LilyPad((numCols) * GameTools.columnWidth, positionUp));
+				numCols += 2;
+			}
+		}
+		//this is if we have odd rows
+		else{
+			numCols--;
+			while(numCols > 0){
+				lilypads.add(new LilyPad((numCols - 1) * GameTools.columnWidth, positionUp));
+				numCols -= 2;
+			}
+		}
 	}
     private void initObjects(){
     	//sets all cars on the screen and adds them to the array cars
@@ -135,7 +138,6 @@ public class Board extends JPanel implements Runnable, ActionListener{
         for(Car car : cars){
     		car.drawCar(g);
     	}
-
         Toolkit.getDefaultToolkit().sync();
     }
     public void paintComponentEnd(Graphics g){
@@ -175,25 +177,24 @@ public class Board extends JPanel implements Runnable, ActionListener{
 			GameEngine.gameLoseSequence();
     	}
     }
-
 	//for log
     public void collision_Detection(Log log){
     	Rectangle frog_rec = frog.getBounds();
-    		Rectangle log_rec =  log.getBounds();
-    		if(frog_rec.intersects(log_rec)){
-    			//what happens when you run into a log
-    			//if you run off the screen you lose
-    			if(!frog.jumpOnLog(log))
-    				GameEngine.gameLoseSequence();
+    	Rectangle log_rec =  log.getBounds();
+    	if(frog_rec.intersects(log_rec)){
+    		//what happens when you run into a log
+    		//if you run off the screen you lose
+    		if(!frog.jumpOnLog(log))
+    			GameEngine.gameLoseSequence();
     	}
     }
     //for lilypad
     public void collision_Detection(LilyPad lilypad){
     	Rectangle frog_rec = frog.getBounds();
-    		Rectangle lilypad_rec =  lilypad.getBounds();
-    		if(frog_rec.intersects(lilypad_rec)){
-    			//make you win sign, then reset
-    			GameEngine.gameWinSequence();
+    	Rectangle lilypad_rec =  lilypad.getBounds();
+    	if(frog_rec.intersects(lilypad_rec)){
+    		//make you win sign, then reset
+    		GameEngine.gameWinSequence();
     	}
     }
     private class TAdapter extends KeyAdapter {

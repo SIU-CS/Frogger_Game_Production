@@ -26,7 +26,7 @@ public class GameEngine{
                 	}
                 });
             }
-
+	private static int countForScrollMove = 0;
 	public static void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int key = e.getKeyCode();
@@ -46,26 +46,29 @@ public class GameEngine{
 
         else if (key == KeyEvent.VK_UP) {
         	gameBoard.getFrog().moveFrogVertical(true);
-
-        	try {
-        		bar.scroll(GameTools.rowHeight);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-        	
+        	if(countForScrollMove > 2){
+	        	try {
+	        		bar.scroll(GameTools.rowHeight);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        	countForScrollMove++;
         	System.out.println("UP");
         }
 
         else if (key == KeyEvent.VK_DOWN) {
         	gameBoard.getFrog().moveFrogVertical(false);
-        	try {
-        		bar.scroll(-GameTools.rowHeight);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-        	
+        	if(countForScrollMove > 2){
+	        	try {
+	        		bar.scroll(-GameTools.rowHeight);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        	countForScrollMove--;
         	System.out.println("DOWN");
         }
         timeLastKeyPress = System.currentTimeMillis();

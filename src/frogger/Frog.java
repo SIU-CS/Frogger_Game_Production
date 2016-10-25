@@ -70,13 +70,11 @@ public class Frog {
     	image = ii.getImage();
     }
     public void drawFrog(Graphics g) {
-        
     	Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(getImage(), getX(), getY(), null);        
     }
     public Rectangle getBounds(){
 		return new Rectangle(x,y,image.getWidth(null),image.getHeight(null));
-
     }
    
    public void moveFrogHorizontal(boolean right){
@@ -116,16 +114,15 @@ public class Frog {
 	   recenterImage();
    }
    //what happens when this frog jumps on a log
-	public boolean jumpOnLog(Log log) {
-		int logX = log.getX();
-		int logY = log.getY();
-		ImageIcon ii = log.getImageIcon();
+	public boolean jumpOnLog(Rectangle log) {
+		int logX = log.x;
+		int logY = log.y;
+		int width = (int) log.getWidth();
 		y = logY;
-		int iwidth = ii.getIconWidth();
-		if(x < logX + ii.getIconWidth()/2)
+		if(x < logX + width/2)
 			x = logX;
 		else
-			x =logX + (ii.getIconWidth() - this.ii.getIconWidth());
+			x =logX + width - this.ii.getIconWidth();
 		jumpedOnLog = true;
 		//this is for timer since last log hit, to check if you need to reset
 		lastLogHitTimer = System.currentTimeMillis();
@@ -135,7 +132,7 @@ public class Frog {
 		}
 		return true;
 	}
-
+	
 	public void checkWaterHit() {
 		 if(y < GameTools.numWaterSquares * GameTools.rowHeight && y > GameTools.rowHeight && System.currentTimeMillis() - lastLogHitTimer > 100)
 			   GameEngine.gameLoseSequence();

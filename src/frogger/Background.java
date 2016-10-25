@@ -30,7 +30,7 @@ class Background extends JPanel{
     	ImageIcon ii = new ImageIcon(image);
 
         this.image = ii.getImage();
-        GameTools.boardWidth = ii.getIconWidth() + 7;
+        GameTools.boardWidth = ii.getIconWidth();
         GameTools.boardImageLength = ii.getIconHeight();
         GameTools.columnWidth = GameTools.boardWidth/GameTools.numCols;
         GameTools.rowHeight = GameTools.boardImageLength/GameTools.numRows;

@@ -60,7 +60,7 @@ public class GameEngine{
 
         else if (key == KeyEvent.VK_DOWN) {
         	gameBoard.getFrog().moveFrogVertical(false);
-        	if(countForScrollMove > 2){
+        	if(countForScrollMove < GameTools.numRows - 5){
 	        	try {
 	        		bar.scroll(-GameTools.rowHeight);
 				} catch (Exception e1) {
@@ -104,6 +104,7 @@ public class GameEngine{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		countForScrollMove = 0;
 	}
 }
 

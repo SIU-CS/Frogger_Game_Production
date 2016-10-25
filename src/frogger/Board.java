@@ -111,16 +111,17 @@ public class Board extends JPanel implements Runnable, ActionListener{
     	//sets all cars on the screen and adds them to the array cars
     	//random number determines if they go right or left
     	logs = new ArrayList<>();
+		rand = new Random();
+    	boolean temp = rand.nextBoolean();
     	for(int i=0;i<LOG_POSITIONS.size();i++){
-    		rand = new Random();
-    		boolean temp = rand.nextBoolean();
     		logs.add(new Log(LOG_POSITIONS.get(i),temp));
+    		temp = !temp;
     	}
     	
     	cars = new ArrayList<>();
     	for(int i=0;i<CAR_POSITIONS.size();i++){
     		rand = new Random();
-    		boolean temp = rand.nextBoolean();
+    		temp = rand.nextBoolean();
     		cars.add(new Car(CAR_POSITIONS.get(i),temp));
     	}
     }
@@ -180,13 +181,23 @@ public class Board extends JPanel implements Runnable, ActionListener{
 	//for log
     public void collision_Detection(Log log){
     	Rectangle frog_rec = frog.getBounds();
-    	Rectangle log_rec =  log.getBounds();
-    	if(frog_rec.intersects(log_rec)){
+    	Rectangle log_rec1 =  log.getBoundsLog1();
+    	Rectangle log_rec2 =  log.getBoundsLog2();
+    	Rectangle log_rec3 =  log.getBoundsLog3();
+    	if(frog_rec.intersects(log_rec1)){
     		//what happens when you run into a log
     		//if you run off the screen you lose
-    		if(!frog.jumpOnLog(log))
+    		if(!frog.jumpOnLog(log_rec1))
     			GameEngine.gameLoseSequence();
-    	}
+	    	}
+	    	else if (frog_rec.intersects(log_rec2)){
+	    		if(!frog.jumpOnLog(log_rec2))
+	    			GameEngine.gameLoseSequence();
+	    	}
+	    	else if (frog_rec.intersects(log_rec3)){
+	    		if(!frog.jumpOnLog(log_rec3))
+	    			GameEngine.gameLoseSequence();
+	    	}
     }
     //for lilypad
     public void collision_Detection(LilyPad lilypad){

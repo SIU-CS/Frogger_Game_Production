@@ -4,20 +4,24 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+
+import java.util.ArrayList;
 import java.util.Random;
 import java.awt.Rectangle;
 
 public class Log{
-    private int x1=0;
-    private int x2=GameTools.boardWidth/3;
-    private int x3 = x2*2;
+	protected static final int MAX_SPEED = 4;
+	protected static final int MINIMUM_SPEED = 1;
+    private Random rand= new Random();
+	protected final int CHANGE_SPEED_AFTER = rand.nextInt(4)+2;
+	private ArrayList<Rectangle> LOGS_BOUNDS = new ArrayList<Rectangle>();
+	private ArrayList<Integer> X_VALUES = new ArrayList<Integer>();
     private int y;
     protected Image image;
     private ImageIcon ii;
     private boolean moveRight;
-    
-    Random rand=new Random();
-    private int speed = rand.nextInt(3)+1;
+    private int numLogResets;
+    private int speed = rand.nextInt(MAX_SPEED - MINIMUM_SPEED)+MINIMUM_SPEED;
     
 
     public Log(int y, boolean moveRight) {
@@ -26,20 +30,30 @@ public class Log{
         initCraft();
         recenterImage();
     }
+    
     private void recenterImage(){
     	//centers the image on the square
         y += (GameTools.rowHeight - ii.getIconHeight())/2;
     }
     private void initCraft() {
+    	numLogResets = 0;
         ii = new ImageIcon(GameTools.logImagePath);
-        
         image = ii.getImage();
-        
+        X_VALUES.add(0);
+        LOGS_BOUNDS.add(new Rectangle(X_VALUES.get(0),y,image.getWidth(null),image.getHeight(null)));
     }
     public void move() {
-    	x1 = moveThisLog(x1);
-    	x2 = moveThisLog(x2);
-    	x3 = moveThisLog(x3);
+
+    	if(numLogResets > CHANGE_SPEED_AFTER){
+    		getNextSpeed();
+    		numLogResets = 0;
+    	}
+    	int index = 0;
+    	while(index < X_VALUES.size()){
+    		X_VALUES.set(index, moveThisLog(X_VALUES.get(index)));
+    		LOGS_BOUNDS.set(index, new Rectangle(X_VALUES.get(index),y,image.getWidth(null),image.getHeight(null)));
+    		index++;
+    	}
  
     }
     private int moveThisLog(int x){
@@ -47,20 +61,25 @@ public class Log{
 	        if(x<GameTools.boardWidth)
 	        	x += speed;
 	        else 
+	        {
 	        	x=-(ii.getIconWidth());
+	        	numLogResets++;
+	        }
     	else{
     		if(x>-ii.getIconWidth())
             	x -= speed;
             else 
+            {
             	x=GameTools.boardWidth;
+            	numLogResets++;
+            }
     	}
     	return x;
     }
-    public void setX(int x){
-    	this.x1=x;
+    public void setX(int index, int x){
+    	 X_VALUES.set(index, x);
     }
-    public int[] getX(){
-    	int[] X_VALUES = {x1,x2,x3};
+    public ArrayList<Integer> getX(){
 		return X_VALUES;
     }
 
@@ -71,23 +90,33 @@ public class Log{
     	return image;
     }
 	public void drawLog(Graphics g) {
+		for(int x : X_VALUES){
     	Graphics2D g2d1 = (Graphics2D) g;
-        g2d1.drawImage(getImage(), x1, getY(), null); 
-        Graphics2D g2d2 = (Graphics2D) g;
-        g2d2.drawImage(getImage(), x2, getY(), null);
-        Graphics2D g2d3 = (Graphics2D) g;
-        g2d3.drawImage(getImage(), x3, getY(), null);
+        g2d1.drawImage(getImage(), x, getY(), null); 
+		}
     }
-    public Rectangle getBoundsLog1(){
-  		return new Rectangle(x1,y,image.getWidth(null),image.getHeight(null));
-  	}
-    public Rectangle getBoundsLog2(){
-  		return new Rectangle(x2,y,image.getWidth(null),image.getHeight(null));
-  	}
-    public Rectangle getBoundsLog3(){
-  		return new Rectangle(x3,y,image.getWidth(null),image.getHeight(null));
-  	}
+	public ArrayList<Rectangle> getBounds(){
+		return LOGS_BOUNDS;
+	}
+	//try add new log to the same row
+	//if theres no more room it will return with false
+	public void addNewLog(int distAhead){
+		int lastXValue = X_VALUES.get(X_VALUES.size()-1);
+		Rectangle newLogRec = new Rectangle(lastXValue + distAhead,
+				y,image.getWidth(null),image.getHeight(null));
+			LOGS_BOUNDS.add(newLogRec);
+			X_VALUES.add(lastXValue + distAhead);
+	}
 	public ImageIcon getImageIcon() {
 		return ii;
+	}
+	private void getNextSpeed(){
+		rand.setSeed(System.nanoTime());
+		if(rand.nextBoolean())
+			if(speed < MAX_SPEED)
+				speed++;
+		else
+			if(speed > MINIMUM_SPEED)
+				speed--;
 	}
 }

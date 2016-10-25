@@ -14,7 +14,6 @@ public class Frog {
     private int y;
     private Image image;
     private ImageIcon ii;
-    private boolean jumpedOnLog = false;
     //used in the detection of you hitting the water
     private long lastLogHitTimer;
 
@@ -39,10 +38,16 @@ public class Frog {
     }
     private void moveBackToRow(){
     	//centers the image on the square
+    	if(x % GameTools.columnWidth < 30)
     		if(x % GameTools.columnWidth > GameTools.columnWidth/2)
     			x += x % GameTools.columnWidth;
     		else
     			x -= x % GameTools.columnWidth;
+    	if(y % GameTools.rowHeight < 30)
+    		if(y % GameTools.rowHeight > GameTools.rowHeight/2)
+    			y += y % GameTools.rowHeight;
+    		else
+    			y -= y % GameTools.rowHeight;
     	recenterImage();
     }
 
@@ -93,13 +98,9 @@ public class Frog {
    }
    
    public void moveFrogVertical(boolean up){
-	   if(jumpedOnLog){
-		   moveBackToRow();
-		   jumpedOnLog = false;
-	  }
 	   if(up){
 		   int tempUp = getY() - (GameTools.rowHeight); 
-		   if(tempUp > 0)
+		   if(tempUp > -5)
 			   setY(tempUp);
 	   }
 	   else{
@@ -123,7 +124,6 @@ public class Frog {
 			x = logX;
 		else
 			x =logX + width - this.ii.getIconWidth();
-		jumpedOnLog = true;
 		//this is for timer since last log hit, to check if you need to reset
 		lastLogHitTimer = System.currentTimeMillis();
 		//retruns false if you run off the the screen
@@ -136,6 +136,15 @@ public class Frog {
 	public void checkWaterHit() {
 		 if(y < GameTools.numWaterSquares * GameTools.rowHeight && y > GameTools.rowHeight && System.currentTimeMillis() - lastLogHitTimer > 100)
 			   GameEngine.gameLoseSequence();
+		
+	}
+
+	public void recenterOnLines() {
+		if(y > (GameTools.numWaterSquares - 1) * GameTools.rowHeight)
+			   moveBackToRow();
+		//this is just in case of glitches out of the box
+		if(y < -10 || y > GameTools.boardImageLength || x < -10 || x > GameTools.boardWidth)
+			GameEngine.gameLoseSequence();
 		
 	}
 }

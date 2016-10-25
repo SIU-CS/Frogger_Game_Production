@@ -15,7 +15,7 @@ public class Car{
     private boolean moveRight;
     
     Random rand=new Random();
-    private int speed = rand.nextInt(3)+1;
+    private int speed = rand.nextInt(4)+1;
     
 
     public Car(int y, boolean moveRight) {

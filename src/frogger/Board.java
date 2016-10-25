@@ -12,14 +12,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JOptionPane.*;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
-import java.lang.Object.*;
 
 public class Board extends JPanel implements Runnable, ActionListener{
 
@@ -170,6 +164,7 @@ public class Board extends JPanel implements Runnable, ActionListener{
     		collision_Detection(lilypad);
     		repaint();
     	}
+    	frog.checkWaterHit();
     }
     //for car
     public void collision_Detection(Car car){
@@ -187,6 +182,7 @@ public class Board extends JPanel implements Runnable, ActionListener{
     		Rectangle log_rec =  log.getBounds();
     		if(frog_rec.intersects(log_rec)){
     			//what happens when you run into a log
+    			//if you run off the screen you lose
     			if(frog.jumpOnLog(log))
     				GameEngine.gameLoseSequence();
     	}

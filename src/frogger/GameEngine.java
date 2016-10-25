@@ -61,6 +61,7 @@ public class GameEngine{
 
         else if (key == KeyEvent.VK_DOWN) {
         	gameBoard.getFrog().moveFrogVertical(false);
+        	
         	try {
         		bar.scroll(-GameTools.rowHeight);
 			} catch (Exception e1) {
@@ -84,19 +85,21 @@ public class GameEngine{
         	
         }
 	}
-	public static void gameWinSequence(){
-		gameResetSequence();
-	}
 	
 	public static void gameLoseSequence(){
+		//what happens when you run into a the water or a car
+		gameResetSequence();
+		System.out.println("YOU LOSE");
+	}
+	public static void gameWinSequence(){
 		//what happens when you run into a lilypad
 		gameResetSequence();
-		
+		System.out.println("YOU WIN");
 	}
-	private static void gameResetSequence(){
+	public static void gameResetSequence(){
 		gameBoard.getFrog().resetToStart();
 		try {
-			bar.scroll(-GameTools.boardImageLength);
+			bar.movePaneToBottom();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

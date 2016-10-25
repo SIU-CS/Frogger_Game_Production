@@ -13,6 +13,8 @@ public class GameTools {
 	public static int numRows = 20;
     //0 = null, 1 = car, 2 = log/alligator, 3 = LilyPads
 	public static int[] BOARD_POSITIONS = {0,0,0,1,1,1,1,0,0,0,1,1,1,1,0,0,2,2,2,3};
+	//water squares always start from the top
+	public static int numWaterSquares = 4;
 	
 	public final static String carImagePath = "car.png";
 	public final static String backgroundImagePath = "map.png";

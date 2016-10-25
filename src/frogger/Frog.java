@@ -15,6 +15,8 @@ public class Frog {
     private Image image;
     private ImageIcon ii;
     private boolean jumpedOnLog = false;
+    //used in the detection of you hitting the water
+    private long timer;
 
     public Frog(int strtWidth, int strtHeight) {
     	startX = strtWidth;
@@ -95,6 +97,7 @@ public class Frog {
 		   if(tempLeft > 0)
 			   setX(tempLeft);
 	   }
+		   
    }
    
    public void moveFrogVertical(boolean up){
@@ -102,7 +105,6 @@ public class Frog {
 		   moveBackToRow();
 		   jumpedOnLog = false;
 	  }
-
 	   if(up){
 		   int tempUp = getY() - (GameTools.rowHeight); 
 		   if(tempUp > 0)
@@ -127,10 +129,17 @@ public class Frog {
 		y = logY;
 		x =logX + (ii.getIconWidth()/2);
 		jumpedOnLog = true;
+		timer = System.currentTimeMillis();
 		if(x + this.ii.getIconWidth() < 0 || x > GameTools.boardWidth){
 			return true;
 		}
 		return false;
+	}
+
+	public void checkWaterHit() {
+		 if(y < GameTools.numWaterSquares * GameTools.rowHeight && System.currentTimeMillis() - timer > 100)
+			   GameEngine.gameLoseSequence();
+		
 	}
 }
 

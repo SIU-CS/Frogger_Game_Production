@@ -120,13 +120,17 @@ public class Frog {
 	   recenterImage();
    }
    //what happens when this frog jumps on a log
-	public void jumpOnLog(Log log) {
+	public boolean jumpOnLog(Log log) {
 		int logX = log.getX();
 		int logY = log.getY();
 		ImageIcon ii = log.getImageIcon();
 		y = logY;
 		x =logX + (ii.getIconWidth()/2);
 		jumpedOnLog = true;
+		if(x + this.ii.getIconWidth() < 0 || x > GameTools.boardWidth){
+			return true;
+		}
+		return false;
 	}
 }
 

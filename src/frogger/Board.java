@@ -12,12 +12,14 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JOptionPane.*;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
+
+import java.lang.Object.*;
 
 public class Board extends JPanel implements Runnable, ActionListener{
 
@@ -174,25 +176,19 @@ public class Board extends JPanel implements Runnable, ActionListener{
     	Rectangle frog_rec = frog.getBounds();
 		Rectangle car_rec =  car.getBounds();
 		if(frog_rec.intersects(car_rec)){
-			//make you lose sign then reset!
-			
-			//what happens when you run into a car
-			frog.resetToStart();
-			try {
-				GameEngine.bar.scroll(-background.getMaxHeight());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			//makes a you lose sign then resets
+			GameEngine.gameLoseSequence();
     	}
     }
-    //for log
+
+	//for log
     public void collision_Detection(Log log){
     	Rectangle frog_rec = frog.getBounds();
     		Rectangle log_rec =  log.getBounds();
     		if(frog_rec.intersects(log_rec)){
     			//what happens when you run into a log
-    			frog.jumpOnLog(log);
+    			if(frog.jumpOnLog(log))
+    				GameEngine.gameLoseSequence();
     	}
     }
     //for lilypad
@@ -201,19 +197,7 @@ public class Board extends JPanel implements Runnable, ActionListener{
     		Rectangle lilypad_rec =  lilypad.getBounds();
     		if(frog_rec.intersects(lilypad_rec)){
     			//make you win sign, then reset
-    			JOptionPane speak = new JOptionPane();
-    			speak.setBackground(Color.RED);
-    			speak.setMessage("You Win!");
-    			speak.createDialog(this, "Winner");
-    			speak.setVisible(true);
-    			//what happens when you run into a lilypad
-    			frog.resetToStart();
-    			try {
-					GameEngine.bar.scroll(-background.getMaxHeight());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+    			GameEngine.gameWinSequence();
     	}
     }
     private class TAdapter extends KeyAdapter {

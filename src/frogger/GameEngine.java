@@ -84,6 +84,24 @@ public class GameEngine{
         	
         }
 	}
+	public static void gameWinSequence(){
+		gameResetSequence();
+	}
+	
+	public static void gameLoseSequence(){
+		//what happens when you run into a lilypad
+		gameResetSequence();
+		
+	}
+	private static void gameResetSequence(){
+		gameBoard.getFrog().resetToStart();
+		try {
+			bar.scroll(-GameTools.boardImageLength);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
 
 

@@ -129,12 +129,21 @@ public class ScrollBoard extends JScrollPane implements AdjustmentListener{
 			return board;
 		}
 		
+		public int getValue(){
+			return bar.getValue();
+		}
+		
 
 		@Override
 		public void adjustmentValueChanged(AdjustmentEvent arg0) {
 			// TODO Auto-generated method stub
 			
 	}
+
+		public int getMaximum() {
+			// TODO Auto-generated method stub
+			return bar.getMaximum();
+		}
 		
 }
 

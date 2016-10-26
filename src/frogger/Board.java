@@ -157,10 +157,6 @@ public class Board extends JPanel implements Runnable, ActionListener{
     	}
         Toolkit.getDefaultToolkit().sync();
     }
-    public void paintComponentEnd(Graphics g){
-    	super.paintComponent(g);
-    	
-    }
     public Frog getFrog(){
     	return frog;
     }

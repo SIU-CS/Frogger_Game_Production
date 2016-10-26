@@ -48,12 +48,12 @@ public class GameEngine{
         	//percent is to scroll when the frog in the middle of the screen
         	double percent = (double)gameBoard.getFrog().getY()/(double)GameTools.boardImageLength;
         	if(percent < 0.85)
-		        	try {
-		        		bar.scroll(GameTools.rowHeight);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+        		try {
+	        		bar.scrollSmooth(GameTools.rowHeight, 10);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         	System.out.println("UP");
         }
 
@@ -63,7 +63,7 @@ public class GameEngine{
         	double percent = (double)gameBoard.getFrog().getY()/(double)GameTools.boardImageLength;
         	if(percent > 0.15)
 	        	try {
-	        		bar.scroll(-GameTools.rowHeight);
+	        		bar.scrollSmooth(-GameTools.rowHeight, 10);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

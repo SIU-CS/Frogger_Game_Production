@@ -1,7 +1,16 @@
 package frogger;
 
 import java.awt.EventQueue;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class GameEngine{
 	
@@ -87,11 +96,17 @@ public class GameEngine{
 	
 	public static void gameLoseSequence(){
 		//what happens when you run into a the water or a car
+		 JOptionPane.showMessageDialog(gameBoard,
+			        "YOU LOSE!","Sorry, Try Again",
+			        JOptionPane.PLAIN_MESSAGE);
 		gameResetSequence();
 		System.out.println("YOU LOSE");
 	}
 	public static void gameWinSequence(){
 		//what happens when you run into a lilypad
+		 JOptionPane.showMessageDialog(gameBoard,
+			        "YOU WIN!!!!","Good Job!",
+			        JOptionPane.PLAIN_MESSAGE);
 		gameResetSequence();
 		System.out.println("YOU WIN");
 	}

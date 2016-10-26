@@ -23,6 +23,9 @@ public class Board extends JPanel implements Runnable, ActionListener{
 	protected static final int MAX_DIST_LOGS = 350;
 	protected static final int MINIMUM_DIST_LOGS = 150;
 	
+	protected static final int MAX_DIST_CARS = 400;
+	protected static final int MINIMUM_DIST_CARS = 100;
+	
 	private ArrayList<Integer> CAR_POSITIONS = new ArrayList<Integer>();
 	private ArrayList<Integer> LOG_POSITIONS = new ArrayList<Integer>();
 	
@@ -101,9 +104,13 @@ public class Board extends JPanel implements Runnable, ActionListener{
     	
     	cars = new ArrayList<>();
     	for(int i=0;i<CAR_POSITIONS.size();i++){
-    		rand = new Random();
-    		temp = rand.nextBoolean();
     		cars.add(new Car(CAR_POSITIONS.get(i),temp));
+    		int count = rand.nextInt(3)+1;
+    		while(count > 0){
+    			cars.get(i).addNewCar(rand.nextInt(MAX_DIST_CARS - MINIMUM_DIST_CARS)+MINIMUM_DIST_CARS);
+    			count--;
+    		}
+    		temp = !temp;
     	}
     }
 
@@ -182,11 +189,14 @@ public class Board extends JPanel implements Runnable, ActionListener{
     //for car
     public void collision_Detection(Car car){
     	Rectangle frog_rec = frog.getBounds();
-		Rectangle car_rec =  car.getBounds();
-		if(frog_rec.intersects(car_rec)){
-			//makes a you lose sign then resets
-			GameEngine.gameLoseSequence();
-    	}
+		//what happens when you run into a log
+		//if you run off the screen you lose
+		ArrayList<Rectangle> rectangles;
+		rectangles = car.getBounds();
+		for(Rectangle rect : rectangles)
+    		if(frog_rec.intersects(rect))
+	    			GameEngine.gameLoseSequence();
+
     }
 	//for log
     public void collision_Detection(Log log){

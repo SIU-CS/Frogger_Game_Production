@@ -24,9 +24,7 @@ public class Frog {
     }
     
     private void initCraft(int x, int y) {
-        
-        ii = new ImageIcon(GameTools.frogImagePath);
-        setImage(ii);
+        setImage(GameTools.frogUpImagePath);
         
         this.x = x;
         this.y = y;
@@ -71,7 +69,8 @@ public class Frog {
         return image;
     }
     
-    private void setImage(ImageIcon ii){
+    private void setImage(String path){
+    	ii = new ImageIcon(path);
     	image = ii.getImage();
     }
     public void drawFrog(Graphics g) {
@@ -84,12 +83,14 @@ public class Frog {
    
    public void moveFrogHorizontal(boolean right){
 	   if (right){
+		   setImage(GameTools.frogRightImagePath);
 		   int tempRight = getX() + (GameTools.columnWidth);
 		   if(tempRight < GameTools.boardWidth){
 			   setX(tempRight);
 		   }	
 	   }
 	   else{
+		   setImage(GameTools.frogLeftImagePath);
 		   int tempLeft = getX() - (GameTools.columnWidth);
 		   if(tempLeft > 0)
 			   setX(tempLeft);
@@ -99,11 +100,13 @@ public class Frog {
    
    public void moveFrogVertical(boolean up){
 	   if(up){
+		   setImage(GameTools.frogUpImagePath);
 		   int tempUp = getY() - (GameTools.rowHeight); 
 		   if(tempUp > -5)
 			   setY(tempUp);
 	   }
 	   else{
+		   setImage(GameTools.frogDownImagePath);
 		   int tempDown = getY() + (GameTools.rowHeight); 
 		   if(tempDown < GameTools.boardImageLength)
 			   setY(tempDown);

@@ -17,9 +17,15 @@ public class GameTools {
 	//water squares always start from the top doesn't include the top row
 	public static int numWaterSquares = 4;
 	
-	public final static String carImagePath = "car.png";
+	public final static String carLeftImagePath = "carLeft.png";
+	public final static String carRightImagePath = "carRight.png";
+	public final static String truckLeftImagePath = "truckLeft.png";
+	public final static String truckRightImagePath = "truckRight.png";
 	public final static String backgroundImagePath = "map.png";
-	public final static String frogImagePath = "frog.png";
+	public final static String frogUpImagePath = "frogUp.png";
+	public final static String frogDownImagePath = "frogDown.png";
+	public final static String frogRightImagePath = "frogRight.png";
+	public final static String frogLeftImagePath = "frogLeft.png";
 	public final static String logImagePath = "log.png";
 	public final static String lilyPadImagePath = "lilypad.png";
 }

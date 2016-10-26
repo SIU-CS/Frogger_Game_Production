@@ -20,11 +20,11 @@ public class Board extends JPanel implements Runnable, ActionListener{
    
 	private static final long serialVersionUID = 1L;
 	
-	protected static final int MAX_DIST_LOGS = 350;
-	protected static final int MINIMUM_DIST_LOGS = 150;
+	protected static final int MAX_DIST_LOGS = 400;
+	protected static final int MINIMUM_DIST_LOGS = 250;
 	
-	protected static final int MAX_DIST_CARS = 400;
-	protected static final int MINIMUM_DIST_CARS = 100;
+	protected static final int MAX_DIST_CARS = 350;
+	protected static final int MINIMUM_DIST_CARS = 150;
 	
 	private ArrayList<Integer> CAR_POSITIONS = new ArrayList<Integer>();
 	private ArrayList<Integer> LOG_POSITIONS = new ArrayList<Integer>();
@@ -72,7 +72,7 @@ public class Board extends JPanel implements Runnable, ActionListener{
         while(count >= 0){
         	int type = GameTools.BOARD_POSITIONS[count];
         	if (type == 1){
-        			CAR_POSITIONS.add(positionUp);
+        		CAR_POSITIONS.add(positionUp);
         	}
         	else if (type == 2){
         		LOG_POSITIONS.add(positionUp);
@@ -94,7 +94,7 @@ public class Board extends JPanel implements Runnable, ActionListener{
     	boolean temp = rand.nextBoolean();
     	for(int i=0;i<LOG_POSITIONS.size();i++){
     		logs.add(new Log(LOG_POSITIONS.get(i),temp));
-    		int count = rand.nextInt(2)+1;
+    		int count = rand.nextInt(1)+1;
     		while(count > 0){
     			logs.get(i).addNewLog(rand.nextInt(MAX_DIST_LOGS - MINIMUM_DIST_LOGS)+MINIMUM_DIST_LOGS);
     			count--;

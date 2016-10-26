@@ -10,8 +10,8 @@ import java.util.Random;
 import java.awt.Rectangle;
 
 public class Log{
-	protected static final int MAX_SPEED = 4;
-	protected static final int MINIMUM_SPEED = 1;
+	protected static final int MAX_SPEED = 5;
+	protected static final int MINIMUM_SPEED = 2;
     private Random rand= new Random();
 	protected final int CHANGE_SPEED_AFTER = rand.nextInt(4)+2;
 	private ArrayList<Rectangle> LOGS_BOUNDS = new ArrayList<Rectangle>();

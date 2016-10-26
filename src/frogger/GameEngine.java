@@ -49,7 +49,7 @@ public class GameEngine{
         	double percent = (double)gameBoard.getFrog().getY()/(double)GameTools.boardImageLength;
         	if(percent < 0.85)
         		try {
-	        		bar.scrollSmooth(GameTools.rowHeight, 10);
+	        		bar.scrollSmooth(GameTools.rowHeight, 15);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -63,7 +63,7 @@ public class GameEngine{
         	double percent = (double)gameBoard.getFrog().getY()/(double)GameTools.boardImageLength;
         	if(percent > 0.15)
 	        	try {
-	        		bar.scrollSmooth(-GameTools.rowHeight, 10);
+	        		bar.scrollSmooth(-GameTools.rowHeight, 15);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

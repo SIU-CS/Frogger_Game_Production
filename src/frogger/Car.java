@@ -39,18 +39,24 @@ public class Car{
     	numCarResets = 0;
     	rand.setSeed(System.nanoTime());
     	if(rand.nextBoolean())
+    	{
     		if(moveRight)
     			ii = new ImageIcon(GameTools.carRightImagePath);
     		else
     			ii = new ImageIcon(GameTools.carLeftImagePath);
+    	}
     	else
+    	{
+    		
     		if(moveRight)
     			ii = new ImageIcon(GameTools.truckRightImagePath);
     		else
     			ii = new ImageIcon(GameTools.truckLeftImagePath);
-        image = ii.getImage();
-        X_VALUES.add(0);
-        CARS_BOUNDS.add(new Rectangle(X_VALUES.get(0),y,image.getWidth(null),image.getHeight(null)));
+    	}
+    	 image = ii.getImage();
+         X_VALUES.add(0);
+         CARS_BOUNDS.add(new Rectangle(X_VALUES.get(0),y,image.getWidth(null),image.getHeight(null)));
+       
     }
     public void move() {
     	if(numCarResets > CHANGE_SPEED_AFTER){
@@ -108,13 +114,12 @@ public class Car{
 		return CARS_BOUNDS;
 	}
 	//try add new Car to the same row
-	//if theres no more room it will return with false
 	public void addNewCar(int distAhead){
 		int lastXValue = X_VALUES.get(X_VALUES.size()-1);
 		Rectangle newCarRec = new Rectangle(lastXValue + distAhead,
 				y,image.getWidth(null),image.getHeight(null));
-			CARS_BOUNDS.add(newCarRec);
-			X_VALUES.add(lastXValue + distAhead);
+		CARS_BOUNDS.add(newCarRec);
+		X_VALUES.add(lastXValue + distAhead);
 	}
 	public ImageIcon getImageIcon() {
 		return ii;

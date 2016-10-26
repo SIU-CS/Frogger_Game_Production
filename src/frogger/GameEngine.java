@@ -3,6 +3,8 @@ package frogger;
 import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JOptionPane;
+
 public class GameEngine{
 	
 	private static Window ex;
@@ -49,23 +51,25 @@ public class GameEngine{
         	//percent is to scroll when the frog in the middle of the screen
         	double percent = (double)gameBoard.getFrog().getY()/(double)GameTools.boardImageLength;
         	if(percent < 0.85)
-		        	try {
-		        		bar.scrollSmooth(GameTools.rowHeight, 10);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+        		try {
+	        		bar.scrollSmooth(GameTools.rowHeight, 10);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         	System.out.println("UP");
         }
 
         else if (key == KeyEvent.VK_DOWN) {
         	gameBoard.getFrog().moveFrogVertical(false);
-        	gameBoard.repaint();
+      	gameBoard.repaint();
+
         	//percent is to scroll when frog is in the middle of the screen
         	double percent = (double)gameBoard.getFrog().getY()/(double)GameTools.boardImageLength;
         	if(percent > 0.15)
 	        	try {
 	        		bar.scrollSmooth(-GameTools.rowHeight, 10);
+
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -89,11 +93,17 @@ public class GameEngine{
 	
 	public static void gameLoseSequence(){
 		//what happens when you run into a the water or a car
+		 JOptionPane.showMessageDialog(gameBoard,
+			        "YOU LOSE!","Sorry, Try Again",
+			        JOptionPane.PLAIN_MESSAGE);
 		gameResetSequence();
 		System.out.println("YOU LOSE");
 	}
 	public static void gameWinSequence(){
 		//what happens when you run into a lilypad
+		 JOptionPane.showMessageDialog(gameBoard,
+			        "YOU WIN!!!!","Good Job!",
+			        JOptionPane.PLAIN_MESSAGE);
 		gameResetSequence();
 		System.out.println("YOU WIN");
 	}

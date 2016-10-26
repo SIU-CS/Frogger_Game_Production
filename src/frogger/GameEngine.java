@@ -45,11 +45,12 @@ public class GameEngine{
 
         else if (key == KeyEvent.VK_UP) {
         	gameBoard.getFrog().moveFrogVertical(true);
+        	gameBoard.repaint();
         	//percent is to scroll when the frog in the middle of the screen
         	double percent = (double)gameBoard.getFrog().getY()/(double)GameTools.boardImageLength;
         	if(percent < 0.85)
 		        	try {
-		        		bar.scroll(GameTools.rowHeight);
+		        		bar.scrollSmooth(GameTools.rowHeight, 10);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -59,11 +60,12 @@ public class GameEngine{
 
         else if (key == KeyEvent.VK_DOWN) {
         	gameBoard.getFrog().moveFrogVertical(false);
+        	gameBoard.repaint();
         	//percent is to scroll when frog is in the middle of the screen
         	double percent = (double)gameBoard.getFrog().getY()/(double)GameTools.boardImageLength;
         	if(percent > 0.15)
 	        	try {
-	        		bar.scroll(-GameTools.rowHeight);
+	        		bar.scrollSmooth(-GameTools.rowHeight, 10);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

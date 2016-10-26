@@ -94,7 +94,7 @@ public class Board extends JPanel implements Runnable, ActionListener{
     	boolean temp = rand.nextBoolean();
     	for(int i=0;i<LOG_POSITIONS.size();i++){
     		logs.add(new Log(LOG_POSITIONS.get(i),temp));
-    		int count = rand.nextInt(1)+1;
+    		int count = rand.nextInt(2)+1;
     		while(count > 0){
     			logs.get(i).addNewLog(rand.nextInt(MAX_DIST_LOGS - MINIMUM_DIST_LOGS)+MINIMUM_DIST_LOGS);
     			count--;
@@ -156,10 +156,6 @@ public class Board extends JPanel implements Runnable, ActionListener{
     		car.drawCar(g);
     	}
         Toolkit.getDefaultToolkit().sync();
-    }
-    public void paintComponentEnd(Graphics g){
-    	super.paintComponent(g);
-    	
     }
     public Frog getFrog(){
     	return frog;

@@ -27,7 +27,7 @@ public class CarController {
 	public void addLane(int typeObject, int spawningY){
 		int lastX = 100;
 		int speed = getNextSpeed();
-		int countObject = rand.nextInt(5)+1;
+		int countObject = rand.nextInt(3)+1;
 		ArrayList<Car> carArray = new ArrayList<Car>();
 		if(typeObject == 1){
 			while(countObject > 0){

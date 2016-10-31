@@ -23,6 +23,8 @@ public class LogController {
 	 *ArrayList<ArrayList<Log>> acts as the lane, many cars will be in it
 	 *ArrayList<Log> is you list of cars in that lane*/
 	protected ArrayList<ArrayList<Log>> laneArray = new ArrayList<ArrayList<Log>>();
+	private long lastLogHitTimer;
+	
 	//adds a new lane(adds an ArrayList<Log> to main ArrayList)
 	public void addLane(int typeObject, int spawningY){
 		int lastX = 100;
@@ -68,16 +70,51 @@ public class LogController {
 	}
 	//determines if given Rectangle is intersecting any logs
 	//returns log as the log is handled differently for its collision
-	public Log collisionDetection(Rectangle bounds){
+	public boolean collisionDetection(Rectangle bounds, Player frog){
+		boolean collisionDetected = true;
 		for(ArrayList<Log> lane : laneArray){
 			for(Log log : lane){
 				Rectangle logBound = log.getBounds();
-				if(bounds.intersects(logBound))
-					return log;
+				if(bounds.intersects(logBound)){
+					collisionDetected = jumpOnLog(bounds, log, frog);
+					return collisionDetected;
+				}
 			}
 		}
-		return null;
+		return collisionDetected;
     }
+	
+	//determines if frog has jumped on log and how that should be handled	
+		public boolean jumpOnLog(Rectangle bounds, Log collidedLog, Player frog) {
+			int frogX = frog.getX();
+			int frogWidth = frog.getSpriteWidth();
+			int logX = collidedLog.getX();
+			int logY = collidedLog.getY();
+			int logWidth = collidedLog.getSpriteWidth();
+				
+			frog.setY(logY);
+			if(frogX < logX + logWidth/2)
+				frog.setX(logX);
+			else
+				frog.setX(logX + logWidth - frogWidth);
+				
+			//this is for timer since last log hit, to check if you need to reset
+			lastLogHitTimer = System.currentTimeMillis();
+				
+			//returns false if you run off the the screen
+			if(frogX + frogWidth < 0 || frogX > GameTools.boardWidth){
+				return false;
+			}	
+			return true;
+		}
+		
+	//checks if frog is in water and not on the log   
+	public boolean checkWaterHit(Player frog) {
+		int frogY = frog.getY();
+		if(frogY < GameTools.numWaterSquares * GameTools.rowHeight && frogY > GameTools.rowHeight && System.currentTimeMillis() - lastLogHitTimer > 100)
+			return true;
+		return false;
+	}
 	
 	//gives a random speed in between max and min speed constants
 	private int getNextSpeed() {

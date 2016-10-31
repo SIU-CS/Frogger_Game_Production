@@ -9,9 +9,6 @@ import java.util.Random;
 
 public class Dynamic extends Entity{
     Random rand = new Random();
-	
-	protected int offset = 100;		//offset that the object can past the map
-	
    
    //The coordinates in which the hostile entity will spawn at once it is initiated.
    protected int spawnX;
@@ -23,7 +20,6 @@ public class Dynamic extends Entity{
   
    //sets objects spawn in X coordinates
    public void setSpawnX(int spawningX){
-	   setOffset(spawningX);
 	   if(getMoveRight()){
 		   System.out.println("spawnX: " + (-1 *(spawningX)));
 		   this.spawnX = -1 * (spawningX);
@@ -85,29 +81,25 @@ public class Dynamic extends Entity{
 	   return speed;
    }
    
-   //sets Offset used for leniency in checkBoundaries
-   private void setOffset(int offset){
-	   this.offset = offset;
-   }
-   
    //moving of the object
-   public void move(){
-	   //moving left-right
-	   if(moveRight)
-		   if(checkBoundaries('x', (getX()+speed), offset)){
-			   setX(spawnX);
-	   		   numResets++;
-	   	   }
-		   else
-			   setX(getX()+speed);
-	   //moving right-left
-	   else
-		   if(checkBoundaries('x', (getX()-speed), offset)){
-			   setX(spawnX);
-	   	       numResets++;
-		   }
-		   else
-			   setX(getX()-speed);
-   }   
+   public int move(){
+	   if(moveRight){
+		   if(getX() < GameTools.boardWidth)
+			   setX(getX() + speed);
+   		   else{
+   			   x=-(getSpriteWidth());
+   			   numResets++;
+   		   }
+	   }
+   	   else{
+   		   if(getX() > -getSpriteWidth())
+   			   setX(getX() - speed);
+           else{
+        	   x=GameTools.boardWidth;
+        	   numResets++;
+           }
+   	   }
+   	   return x;
+   }  
 
 }

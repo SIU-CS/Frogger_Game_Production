@@ -27,7 +27,6 @@ public class Board extends JPanel implements Runnable, ActionListener{
     private Player frog;
     private Timer timer;
     private final int DELAY=20;
-    private long lastLogHitTimer;
     private Background background;
 	TAdapter key;
 	
@@ -135,16 +134,16 @@ public class Board extends JPanel implements Runnable, ActionListener{
         		keyboardControls.gameLoseSequence();
 
         	logControls.moveLogs();
-        	Log collidedLog = logControls.collisionDetection(frogBounds);
-        	if(collidedLog != null)
-        		if(!jumpOnLog(frogBounds, collidedLog))
+        	if(!logControls.collisionDetection(frogBounds, frog))
         			keyboardControls.gameLoseSequence();
         	
         	for(LilyPad lilypad : lilypads){
         		collision_Detection(lilypad);
         	}
 		    
-    	checkWaterHit();
+    	if(logControls.checkWaterHit(frog))
+    		keyboardControls.gameLoseSequence();
+    	
     	frog.recenterOnLines();
     }
     
@@ -187,37 +186,6 @@ public class Board extends JPanel implements Runnable, ActionListener{
     		keyboardControls.gameWinSequence();
     	}
     }
-    
-    //determines if frog has jumped on log and how that should be handled	
-	public boolean jumpOnLog(Rectangle frogBounds, Log collidedLog) {
-		int frogX = frog.getX();
-		int frogWidth = frog.getSpriteWidth();
-		int logX = collidedLog.getX();
-		int logY = collidedLog.getY();
-		int logWidth = collidedLog.getSpriteWidth();
-			
-		frog.setY(logY);
-		if(frogX < logX + logWidth/2)
-			frog.setX(logX);
-		else
-			frog.setX(logX + logWidth - frogWidth);
-			
-		//this is for timer since last log hit, to check if you need to reset
-		lastLogHitTimer = System.currentTimeMillis();
-			
-		//returns false if you run off the the screen
-		if(frogX + frogWidth < 0 || frogX > GameTools.boardWidth){
-			return false;
-		}
-			
-		return true;
-	}
-	//checks if frog is in water and not on the log   
-	public void checkWaterHit() {
-		int frogY = frog.getY();
-		if(frogY < GameTools.numWaterSquares * GameTools.rowHeight && frogY > GameTools.rowHeight && System.currentTimeMillis() - lastLogHitTimer > 100)
-			keyboardControls.gameLoseSequence();	
-		}
 	
     private class TAdapter extends KeyAdapter {
 	    @Override

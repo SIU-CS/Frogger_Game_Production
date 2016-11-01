@@ -10,7 +10,7 @@ import java.util.Random;
 import java.awt.Rectangle;
 
 public class Car{
-	protected static final int MAX_SPEED = 4;
+	protected static final int MAX_SPEED = 3;
 	protected static final int MINIMUM_SPEED = 1;
     private Random rand= new Random();
 	protected final int CHANGE_SPEED_AFTER = rand.nextInt(4)+2;

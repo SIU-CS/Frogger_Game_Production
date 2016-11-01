@@ -24,7 +24,7 @@ public class Board extends JPanel implements Runnable, ActionListener{
 	private static final long serialVersionUID = 1L;
 	
 	protected static final int MAX_DIST_LOGS = 400;
-	protected static final int MINIMUM_DIST_LOGS = 250;
+	protected static final int MINIMUM_DIST_LOGS = 300;
 	
 	protected static final int MAX_DIST_CARS = 350;
 	protected static final int MINIMUM_DIST_CARS = 150;

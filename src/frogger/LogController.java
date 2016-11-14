@@ -24,6 +24,7 @@ public class LogController {
 	 *ArrayList<Log> is you list of cars in that lane*/
 	protected ArrayList<ArrayList<Log>> laneArray = new ArrayList<ArrayList<Log>>();
 	private long lastLogHitTimer;
+	private boolean logMove = false;
 	
 	//adds a new lane(adds an ArrayList<Log> to main ArrayList)
 	public void addLane(int typeObject, int spawningY){
@@ -31,14 +32,16 @@ public class LogController {
 		int speed = getNextSpeed();
 		int countObject = rand.nextInt(3)+1;
 		ArrayList<Log> logArray = new ArrayList<Log>();
+		logMove = !logMove;
+		
 		if(typeObject == 3){
+			
 			while(countObject > 0){
-				boolean logMove = true;
+				
 				int distAhead = (MAX_DIST_LOGS - MINIMUM_DIST_LOGS) + MINIMUM_DIST_LOGS;
 	        	Log newLog = addLog(speed, lastX + distAhead, spawningY, logMove);
 	        	lastX = lastX+distAhead;
 	        	logArray.add(newLog);
-	        	logMove = !logMove;
 	        	countObject--;
 	        }		
 		}

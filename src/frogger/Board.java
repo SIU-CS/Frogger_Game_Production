@@ -24,8 +24,8 @@ public class Board extends JPanel implements Runnable, ActionListener{
 	KeyboardController keyboardControls;			 //controller for the key inputs
 	protected ArrayList<LilyPad> lilypads;			 //array of object lily pads
 	
-    private Player frog;
-    private Timer timer;
+    private Player frog = new Player(0,0);
+    public Timer timer;
     private final int DELAY=20;
     private Background background;
 	TAdapter key;
@@ -54,7 +54,18 @@ public class Board extends JPanel implements Runnable, ActionListener{
         timer.start();
         setPreferredSize(new Dimension(background.getMaxWidth(),background.getMaxHeight()) );
     }
-    
+    public void pause(){
+    	if(timer.isRunning()){
+    		try {
+				Thread.sleep(100000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	else
+    		timer.start();
+    }
     /*Initializes the Objects
      * Creates a player or frog 
      * Considers the lanes given and determines the dynamic object to create
@@ -88,7 +99,7 @@ public class Board extends JPanel implements Runnable, ActionListener{
     }
     
     /*sets up a new thread that runs the KeyboardController*/
-    public void setKeyboard(ScrollBoard gameScroll){
+    public void setKeyboard(final ScrollBoard gameScroll){
     	//Initializing KeyboardController
         EventQueue.invokeLater(new Runnable(){
         	@Override

@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 /*KeyboardController class handles all inputs from the user.
  *inputs will affect the frog, scroll board, menu(in the future)*/
 
-public class KeyboardController{
+public class KeyboardController extends Board{
 	
 	Player frog;
 	ScrollBoard gameScroll;
@@ -18,12 +18,12 @@ public class KeyboardController{
 		this.gameScroll = gameScroll;
 		this.frog = frog;
 	}
-	
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(System.currentTimeMillis() - timeLastKeyPress >  waitNextKeyPress){ //gates input between times
 		//Pressing left on the keyboard
-        if (key == KeyEvent.VK_LEFT) {
+		
+		if (key == KeyEvent.VK_LEFT) {
             frog.moveFrogHorizontal(false);
             
             System.out.println("LEFT");

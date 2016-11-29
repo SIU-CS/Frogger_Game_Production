@@ -1,4 +1,4 @@
-<project name="frogger" basedir="" default="build.xml">
+<project name="Frogger_Game_Production" basedir=".">
 	<mkdir dir="${test.report.dir}"/>
 		<target name="junit">
 			<junit printsummary="on" fork="true" haltonfailure="yes">

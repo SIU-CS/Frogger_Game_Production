@@ -1,2 +1,4 @@
 language: java
-ant
+script: ant
+jdk
+ -oraclejdk8

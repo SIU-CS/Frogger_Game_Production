@@ -1,0 +1,10 @@
+<project name="frogger" basedir="" default="build.xml">
+	<mkdir dir="${test.report.dir}"/>
+		<target name="junit">
+			<junit printsummary="on" fork="true" haltonfailure="yes">
+				<classpath><filelist><include name="junit-4.12.jar"/></filelist></classpath>
+				<formatter type="plain"/>
+				<batchtest> todir="${test.report.dir}><fileset><include name="**/*Test.java"/></fileset></batchtest>
+			</junit>
+		</target>
+</project>

@@ -1,5 +1,5 @@
 <project name="Frogger_Game_Production" basedir=".">
-	<mkdir dir="${test.report.dir}"/>
+	<mkdir dir="test.logs"/>
 	<target name="compile">
 		<mkdir dir="${classes.dir}" />
 		<javac srcdir="${src.dir}" destdir="${classes.dir}">
@@ -16,7 +16,7 @@
 				</filelist>
 			</classpath>
 			<formatter type="plain"/>
-			<batchtest> todir="${test.report.dir}><fileset>
+			<batchtest todir="test.logs"><fileset>
 					<include name="FileCheck.java"/>
 				</fileset>
 			</batchtest>

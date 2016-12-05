@@ -1,5 +1,7 @@
 package frogger;
 
+import java.util.ArrayList;
+
 /*GameTools class contains all variable information for the game.*/
 
 public class GameTools {
@@ -35,4 +37,21 @@ public class GameTools {
 	public final static String frogLeftImagePath = "frogLeft.png";
 	public final static String logImagePath = "log.png";
 	public final static String lilyPadImagePath = "lilypad.png";
+	
+	private static ArrayList<String> fileNames;
+	
+	public static ArrayList<String> getFileNames(){
+		fileNames.add(carLeftImagePath);
+		fileNames.add(carRightImagePath);
+		fileNames.add(truckLeftImagePath);
+		fileNames.add(truckRightImagePath);
+		fileNames.add(backgroundImagePath);
+		fileNames.add(frogUpImagePath);
+		fileNames.add(frogDownImagePath);
+		fileNames.add(frogRightImagePath);
+		fileNames.add(frogLeftImagePath);
+		fileNames.add(logImagePath);
+		fileNames.add(lilyPadImagePath);
+		return fileNames;
+	}
 }

@@ -17,7 +17,7 @@
 			</classpath>
 			<formatter type="plain"/>
 			<batchtest> todir="${test.report.dir}><fileset>
-					<include name="**/*Test.java"/>
+					<include name="FileCheck.java"/>
 				</fileset>
 			</batchtest>
 		</junit>

@@ -6,10 +6,12 @@ import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import froggerGame.Entity;
+import frogger.Entity;
 
 public class EntityTest {
 	static Entity e = new Entity();
@@ -17,8 +19,9 @@ public class EntityTest {
 	
 	@Before
 	public void setUpBefore() throws Exception {
-		sprite = ImageIO.read(new File("src/frog.png"));
-		e.setSprite(sprite);
+		ImageIcon ii = new ImageIcon("src/frog.png");
+		sprite = ii.getImage();
+		e.setSprite("src/frog.png");
 		e.setX(0);
 		e.setY(0);
 	}
@@ -40,18 +43,18 @@ public class EntityTest {
 	@Test
 	public void testGetBounds() {
 		Rectangle r = e.getBounds();
-		Rectangle r2 = new Rectangle(0,0, sprite.getWidth(null), sprite.getHeight(null));
+		Rectangle r2 = new Rectangle(0,0, e.getSpriteWidth(), e.getSpriteHeight());
 		assertEquals(r2,r);
 	}//passed
 	
 	@Test
 	public void testGetCheckBoundaries() {
 		//test an inbounds object on x access
-		assertFalse(e.checkBoundaries('x', 100, 0));
+		assertFalse(e.checkBoundaries('x', 0, 0));
 		//test an inbounds object on y access
-		assertFalse(e.checkBoundaries('y', 100, 0));
+		assertFalse(e.checkBoundaries('y', 0, 0));
 		//test an out of bounds object on x axis
-		assertTrue(e.checkBoundaries('x', -100, 0));
+		assertTrue(e.checkBoundaries('x', 100, 0));
 		//test an out of bounds object with a pardon
 		//should be considered inbounds
 		assertFalse(e.checkBoundaries('x', -100, 100));
@@ -60,10 +63,10 @@ public class EntityTest {
 	}//passed
 	
 	@Test
-	public void testSetGetSprite() throws IOException {
-		Image sprite2 = ImageIO.read(new File("src/frog.png"));
+	public void testSetGetSprite(){
+		String sprite2 = "src/frog.png";
 		e.setSprite(sprite2);
-		assertEquals(sprite2, e.getSprite());	
+		assertEquals(sprite, e.getSprite());	
 	}//passed
 
 }

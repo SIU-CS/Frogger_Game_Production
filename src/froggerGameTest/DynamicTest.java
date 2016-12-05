@@ -3,7 +3,7 @@ package froggerGameTest;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import froggerGame.Dynamic;
+import frogger.Dynamic;
 
 public class DynamicTest {
 	Dynamic d = new Dynamic();
@@ -14,16 +14,17 @@ public class DynamicTest {
 
 	@Test
 	public void testSetModifierGetSpeed() {
-		d.setModifier(2);
+		d.setSpeed(2);
 		assertEquals(20, d.getSpeed());
 	} //passed
 	
 	@Test
 	public void testSpawnMoveRightGetXYMoveRight() {
-		d.setSpawn(100);
+		d.setSpawnY(100);
+		d.setSpawnX(-100);
 		d.setMoveRight(true);
-		assertEquals(-100, d.getSpawningX());
-		assertEquals(100, d.getSpawningY());
+		assertEquals(100, d.getSpawnX());
+		assertEquals(100, d.getSpawnY());
 		assertEquals(true, d.getMoveRight());
 	} //passed
 	
@@ -40,7 +41,7 @@ public class DynamicTest {
 		//testing move to right when reaching out of bounds
 		d.setX(900); //assuming board width is 800
 		d.move();
-		assertEquals(d.getSpawningX(), d.getX());
+		assertEquals(d.getSpawnX(), d.getX());
 		
 		//a left moving object
 		d.setMoveRight(false);
@@ -52,7 +53,7 @@ public class DynamicTest {
 		//testing move to left when reaching out of bounds
 		d.setX(-100); //assuming board width is 800
 		d.move();
-		assertEquals(d.getSpawningX(), d.getX());
+		assertEquals(d.getSpawnX(), d.getX());
 		
 	} //passed
 }

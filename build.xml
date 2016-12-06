@@ -4,7 +4,6 @@
 
 		<junit printsummary="yes" haltonfailure="no">
 	
-			<classpath refid="test.path" />
 			<classpath location="${build.dir}" />
 	
 			<!-- Make sure these two libraries are included -->

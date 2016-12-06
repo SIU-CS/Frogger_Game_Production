@@ -18,6 +18,7 @@
 			<formatter type="plain"/>
 			<batchtest todir="test.logs"><fileset>
 					<include name="FileCheck.java"/>
+					<include name="CarTest.java"/>
 				</fileset>
 			</batchtest>
 		</junit>

@@ -16,7 +16,6 @@
 	<!-- Define the classpath which includes the junit.jar and the classes after compiling-->
 	<path id="junit.class.path">
 		<pathelement location="junit-4.12.jar" />
-		<pathelement location="org.hamcrest.core_1.3.0.v201303031735.jar" />
 		<pathelement location="${build.dir}" />
 	</path>
 
@@ -38,7 +37,7 @@
 		<junit printsummary="on" fork="true" haltonfailure="yes">
 					<classpath>
 						<fileset dir="/">
-							<include name="junit-4.12.jar" />
+							<include name="junit.class.path" />
 							<include name="org.hamcrest.core_1.3.0.v201303031735.jar" />
 						</fileset>
 					</classpath>

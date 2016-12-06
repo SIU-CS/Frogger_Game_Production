@@ -1,14 +1,9 @@
-<project name="Frogger_Game_Production" basedir="." default="main">
+<project name="Frogger_Game_Production" basedir=".">
 	<!--Properties for this build-->
 	<property name="src.dir" value="src" />
 	<property name="build.dir" value="build" />
 	<property name="classes.dir" value="${build.dir}/classes" />
 	<property name="jar.dir" value="${build.dir}/jar" />
-	<property name="main-class" value="edu.siu.Frogger_Game_Production.froggerGameTest" />
-
-	<target name="clean">
-		<delete dir="${build.dir}" />
-	</target>
 
 	<target name="compile">
 		<mkdir dir="${classes.dir}" />
@@ -18,24 +13,6 @@
 			</classpath>
 		</javac>
 	</target>
-
-
-	<target name="jar" depends="compile">
-		<mkdir dir="${jar.dir}" />
-		<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
-			<manifest>
-				<attribute name="Main-Class" value="${main-class}" />
-			</manifest>
-		</jar>
-	</target>
-
-	<target name="run" depends="jar">
-		<java jar="${jar.dir}/${ant.project.name}.jar" fork="true" />
-	</target>
-
-	<target name="clean-build" depends="clean,jar" />
-
-	<target name="main" depends="clean,run" />
 
 	<property name="test.report.dir" value="./tests" />
 	<mkdir dir="${test.report.dir}" />

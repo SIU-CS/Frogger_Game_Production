@@ -14,8 +14,8 @@ import frogger.GameTools;
 
 public class CarTest {
 	//sets up the car and truck before the class
-	Car car;
-	Car truck;
+	private Car car;
+	private Car truck;
 	@Before
 	public void setUpBefore() throws Exception {
 		

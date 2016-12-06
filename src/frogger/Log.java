@@ -5,7 +5,10 @@ package frogger;
 public class Log extends Dynamic{
     
     public Log(int speed, int spawningX, int spawningY, boolean moveRight) {
-    	setSpeed(speed);
+    	if(speed >= 0)
+    		setSpeed(speed);
+    	else
+    		setSpeed(5);
     	setMoveRight(moveRight);
     	setSpawnX(spawningX);
     	setSpawnY(spawningY);

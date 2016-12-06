@@ -15,20 +15,20 @@ import org.junit.Test;
 import frogger.GameTools;
 
 public class FileCheck {
-	private ArrayList<String> fileList = GameTools.getFileNames();
+	private String fileList[] = GameTools.getFileNames();
 	int counter = 0;
 	@Test
 	public void test() {
 		
-		for(int i=0;i<fileList.size();i++){
-			ImageIcon img = new ImageIcon(fileList.get(i));
-			System.out.println(fileList.get(i));
+		for(int i=0;i<fileList.length;i++){
+			ImageIcon img = new ImageIcon(fileList[i]);
+			System.out.println(fileList[i]);
 			
 			if (img.getIconHeight()>0)
 				System.out.println(counter);
 				counter++;
 		}
 		
-		assertEquals(counter,fileList.size()-1);
+		assertEquals(counter,fileList.length-1);
 	}
 }

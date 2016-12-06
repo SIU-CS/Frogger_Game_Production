@@ -8,7 +8,7 @@ import org.junit.Test;
 public class BoardTest {
 
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() {
 	}
 
 	@Test

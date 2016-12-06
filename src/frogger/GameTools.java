@@ -38,20 +38,10 @@ public class GameTools {
 	public final static String logImagePath = "log.png";
 	public final static String lilyPadImagePath = "lilypad.png";
 	
-	private static ArrayList<String> fileNames;
+	private static String fileNames[] = {carLeftImagePath,carRightImagePath,truckLeftImagePath,truckRightImagePath,
+			backgroundImagePath,frogUpImagePath,frogDownImagePath,frogRightImagePath,frogLeftImagePath,logImagePath,lilyPadImagePath};
 	
-	public static ArrayList<String> getFileNames(){
-		fileNames.add(carLeftImagePath);
-		fileNames.add(carRightImagePath);
-		fileNames.add(truckLeftImagePath);
-		fileNames.add(truckRightImagePath);
-		fileNames.add(backgroundImagePath);
-		fileNames.add(frogUpImagePath);
-		fileNames.add(frogDownImagePath);
-		fileNames.add(frogRightImagePath);
-		fileNames.add(frogLeftImagePath);
-		fileNames.add(logImagePath);
-		fileNames.add(lilyPadImagePath);
+	public static String[] getFileNames(){
 		return fileNames;
 	}
 }

@@ -1,38 +1,59 @@
-<project name="MyProject" default="dist" basedir=".">
-	<description>
-    simple example build file
-  </description>
-	<!-- set global properties for this build -->
-	<property name="src" location="src"/>
-	<property name="build" location="build"/>
-	<property name="dist" location="dist"/>
+<project name="Frogger_Game_Production" basedir="." default="main">
+	<!--Properties for this build-->
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="classes.dir" value="${build.dir}/classes" />
+	<property name="jar.dir" value="${build.dir}/jar" />
+	<property name="main-class" value="edu.siu.pacman.Main" />
 
-	<target name="init">
-		<!-- Create the time stamp -->
-		<tstamp/>
-		<!-- Create the build directory structure used by compile -->
-		<mkdir dir="${build}"/>
+	<target name="clean">
+		<delete dir="${build.dir}" />
 	</target>
 
-	<target name="compile" depends="init"
-        description="compile the source">
-		<!-- Compile the java code from ${src} into ${build} -->
-		<javac srcdir="${src}" destdir="${build}"/>
+	<target name="compile">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}">
+			<classpath>
+				<pathelement path="lib/junit-4.12.jar" />
+			</classpath>
+		</javac>
 	</target>
 
-	<target name="dist" depends="compile"
-        description="generate the distribution">
-		<!-- Create the distribution directory -->
-		<mkdir dir="${dist}/lib"/>
 
-		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-		<jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
+	<target name="jar" depends="compile">
+		<mkdir dir="${jar.dir}" />
+		<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}" />
+			</manifest>
+		</jar>
 	</target>
 
-	<target name="clean"
-        description="clean up">
-		<!-- Delete the ${build} and ${dist} directory trees -->
-		<delete dir="${build}"/>
-		<delete dir="${dist}"/>
+	<target name="run" depends="jar">
+		<java jar="${jar.dir}/${ant.project.name}.jar" fork="true" />
+	</target>
+
+	<target name="clean-build" depends="clean,jar" />
+
+	<target name="main" depends="clean,run" />
+
+	<property name="test.report.dir" value="./tests" />
+	<mkdir dir="${test.report.dir}" />
+	<target name="junit" depends="compile">
+		<junit printsummary="on" fork="true" haltonfailure="yes">
+			<classpath>
+				<fileset dir="lib/">
+					<include name="junit-4.12.jar" />
+					<include name="hamcrest-core-1.3.jar" />
+				</fileset>
+			</classpath>
+			<classpath location="${classes.dir}" />
+			<formatter type="plain" />
+			<batchtest todir="${test.report.dir}">
+				<fileset dir="${src.dir}">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
 	</target>
 </project>

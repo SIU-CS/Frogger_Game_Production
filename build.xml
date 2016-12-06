@@ -32,13 +32,12 @@
 			<classpath refid="junit.class.path" />
 		</javac>
 	</target>
-	
 	<property name="test.report.dir" value="./tests"/>
 	<mkdir dir="${test.report.dir}" />
 	<target name="junit" depends="compile">
 		<junit printsummary="on" fork="true" haltonfailure="yes">
 					<classpath>
-						<fileset dir="lib/">
+						<fileset dir="Frogger_Game_Production/">
 							<include name="junit-4.12.jar" />
 							<include name="org.hamcrest.core_1.3.0.v201303031735.jar" />
 						</fileset>

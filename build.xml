@@ -1,63 +1,23 @@
-<project name="Frogger_Game_Production" default="main" basedir=".">
-	<!-- Sets variables which can later be used. -->
-	<property name="src.dir" location="" />
-	<property name="build.dir" location="../bin" />
-	<property name="dist.dir" location="../dist" />
-	<property name="lib.dir" location="../lib" />
-	<property name="test.dir" location="../src" />
-	<property name="test.report.dir" location="../testreport" />
+<project name="Frogger_Game_Production" default="junit" basedir=".">
+	<!-- Run jUnit -->
+	 <target name="junit">
 
-
-	<target name="clean">
-		<delete dir="${build.dir}" />
-		<delete dir="${dist.dir}" />
-	</target>
-
-	<!-- Define the classpath which includes the junit.jar and the classes after compiling-->
-	<path id="junit.class.path">
-		<pathelement location="junit-4.12.jar" />
-		<pathelement location="${build.dir}" />
-	</path>
-
-	<target name="makedir">
-		<mkdir dir="${build.dir}" />
-		<mkdir dir="${dist.dir}" />
-		<mkdir dir="${test.report.dir}" />
-	</target>
-
-	<!-- Compiles the java code (including the usage of library for JUnit -->
-	<target name="compile" depends="clean, makedir">
-		<javac srcdir="${src.dir}" destdir="${build.dir}">
-			<classpath refid="junit.class.path" />
-		</javac>
-	</target>
-	<property name="test.report.dir" value="./tests"/>
-	<mkdir dir="${test.report.dir}" />
-	<target name="junit" depends="compile">
-		<junit printsummary="on" fork="true" haltonfailure="yes">
-				<classpath location="lib/junit-4.12.jar" />
-				<classpath location="lib/hamcrest-core-1.3.jar" />
-				<classpath location="${classes.dir}" />
+		<junit printsummary="yes" haltonfailure="no">
+	
+			<classpath refid="test.path" />
+			<classpath location="${build.dir}" />
+	
+			<!-- Make sure these two libraries are included -->
+			<classpath location="lib/junit-4.11.jar" />
+			<classpath location="lib/hamcrest-core-1.3.jar" />
+	
+			<test name="com.mkyong.test.TestMessage"
+				haltonfailure="no" todir="${report.dir}" outfile="result">
 				<formatter type="plain" />
-				<batchtest todir="${test.report.dir}">
-					<fileset dir="${src.dir}">
-						<include name="**/*Test.java" />
-					</fileset>
-				</batchtest>
-			</junit>
-	</target>
-
-	<!--Creates the deployable jar file  -->
-	<target name="jar" depends="compile">
-		<jar destfile="${dist.dir}\se.testall.jar" basedir="${build.dir}">
-			<manifest>
-				<attribute name="Main-Class" value="test.Main" />
-			</manifest>
-		</jar>
-	</target>
-
-	<target name="main" depends="compile, jar, junit">
-		<description>Main target</description>
-	</target>
+				<formatter type="xml" />
+			</test>
+	
+		</junit>
+	 </target>
 
 </project>

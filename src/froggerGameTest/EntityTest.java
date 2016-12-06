@@ -3,9 +3,6 @@ package froggerGameTest;
 import static org.junit.Assert.*;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import org.junit.Before;

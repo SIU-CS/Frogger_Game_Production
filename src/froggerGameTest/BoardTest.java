@@ -1,10 +1,7 @@
 package froggerGameTest;
 
-import static org.junit.Assert.*;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
-
+import org.junit.BeforeClass;
 public class BoardTest {
 
 	@BeforeClass

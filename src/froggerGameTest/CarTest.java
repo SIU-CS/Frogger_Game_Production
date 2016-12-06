@@ -1,5 +1,6 @@
 package froggerGameTest;
 
+import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.awt.Image;
@@ -7,7 +8,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 import org.junit.Before;
-import org.junit.Test;
 import frogger.Car;
 
 import frogger.GameTools;

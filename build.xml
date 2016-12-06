@@ -37,7 +37,7 @@
 	<target name="junit" depends="compile">
 		<junit printsummary="on" fork="true" haltonfailure="yes">
 					<classpath>
-						<fileset dir="Frogger_Game_Production/">
+						<fileset dir="/">
 							<include name="junit-4.12.jar" />
 							<include name="org.hamcrest.core_1.3.0.v201303031735.jar" />
 						</fileset>

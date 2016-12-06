@@ -36,10 +36,8 @@
 	<target name="junit" depends="compile">
 		<junit printsummary="on" fork="true" haltonfailure="yes">
 					<classpath>
-						<fileset dir="/">
-							<include name="junit.class.path" />
-							<include name="org.hamcrest.core_1.3.0.v201303031735.jar" />
-						</fileset>
+						<classpath location="lib/junit-4.12.jar" />
+						<classpath location="lib/hamcrest-core-1.3.jar" />
 					</classpath>
 					<classpath location="${classes.dir}" />
 					<formatter type="plain" />

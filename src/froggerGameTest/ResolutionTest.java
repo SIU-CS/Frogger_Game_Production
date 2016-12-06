@@ -2,13 +2,11 @@ package froggerGameTest;
 
 import static org.junit.Assert.*;
 
-import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-
 import org.junit.Test;
 
-import com.sun.media.sound.Toolkit;
+
 
 public class ResolutionTest {
 

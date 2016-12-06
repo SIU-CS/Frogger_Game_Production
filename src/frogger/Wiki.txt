@@ -1,0 +1,16 @@
+Frogger
+Adam, Jeffery, Devon
+
+Here you will find our rendition of the classic Frogger game. The game is written in the Java language. This project was created as an assignment for a CS class at SIU.
+
+Section 1 - Movement
+
+For our game we have two types of sprite movement, active and passive. We consider active movement to be that driven by human input. The passive movement is movement that is either hard-coded or generated on the fly (logs, cars). Most of the passive movement such as logs moving across the screen is controlled by a starting X coordinate, and then just changing that coordinate to make the log sprite move across the screen. To control our player movement, we utilized the AWT package's KeyEvent. This is a listener that allows us to respond to player input. Similarly to how we move the passive sprites, upon a key event we just move the X and Y coordinate of the frog appropriately. In recent pushes, we have also made the frog movement so that the sprite's image rotates based on movement direction.
+
+Section 2 - Collision Detection
+
+Collision detection for our game is fairly simple. We use Java's rectangle Object to build a rectangle of coordinates, and assign that rectangle to the same screen position as the image of the sprite. Finally, we constantly check the frog's rectangle against all other object's rectangles to determine if they intersect. If the rectangles are intersecting, we know that a collision has occurred. Once we know there has been collision, we determine what type of collision it is. For example, if the frog collides with a moving log, the frog will "ride" on that log. If the frog hits a car or water though, the game is over.
+
+Section 3 - Window
+
+Our window mechanism uses the Swing library, including JFrame, JPanel, and JScrollPane. We first render the background inside of the JPanel and JScrollPane, and then render the sprites on top of that. We use the JScrollPane to move the map based on where the frog is at. This is a very efficient method of controlling screen movement. This makes it easy to scale our map to be larger, as well as swap in different backgrounds.

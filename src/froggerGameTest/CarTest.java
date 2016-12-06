@@ -22,7 +22,7 @@ public class CarTest {
 	}
 
 	@Test
-	public void testMoveRightCar() {
+	public void testSetUpRightCar() {
 		//sets up the testie
 		car = new Car(1, 0, 0, 1, true);
 		//sets up the tester
@@ -34,7 +34,7 @@ public class CarTest {
 		assertEquals(true,car.getMoveRight());
 	}
 	@Test
-	public void testMoveLeftCar() {
+	public void testSetUpLeftCar() {
 		//sets up the testie
 		car = new Car(1, 0, 0, 1, false);
 		//sets up the tester
@@ -46,7 +46,7 @@ public class CarTest {
 		assertEquals(false,car.getMoveRight());
 	}
 	@Test
-	public void testMoveRightTruck() {
+	public void testSetUpRightTruck() {
 		//sets up the testie
 		truck = new Car(1, 0, 0, 2, true);
 		//sets up the tester
@@ -58,7 +58,7 @@ public class CarTest {
 		assertEquals(true,truck.getMoveRight());
 	}
 	@Test
-	public void testMoveLeftTruck() {
+	public void testSetUpLeftTruck() {
 		//sets up the testie
 		truck = new Car(1, 0, 0, 2, false);
 		//sets up the tester

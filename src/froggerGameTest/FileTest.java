@@ -1,20 +1,14 @@
-package frogger;
+package froggerGameTest;
 
 import static org.junit.Assert.*;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import org.junit.Test;
 
 import frogger.GameTools;
 
-public class FileCheck {
+public class FileTest {
 	private String fileList[] = GameTools.getFileNames();
 	int counter = 0;
 	@Test
@@ -29,6 +23,6 @@ public class FileCheck {
 				counter++;
 		}
 		
-		assertEquals(counter,fileList.length-1);
+		assertEquals(counter,fileList.length);
 	}
 }

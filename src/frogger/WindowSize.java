@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+
 public class WindowSize {
 	public void setUp(){
 		Background game = new Background();

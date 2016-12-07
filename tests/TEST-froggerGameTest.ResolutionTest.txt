@@ -1,4 +1,4 @@
 Testsuite: froggerGameTest.ResolutionTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.519 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.298 sec
 
-Testcase: test took 0.397 sec
+Testcase: test took 0.259 sec

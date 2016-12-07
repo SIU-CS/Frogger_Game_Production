@@ -1,0 +1,21 @@
+Testsuite: froggerGameTest.LogTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.618 sec
+------------- Standard Output ---------------
+spawnX: 0
+spawnY: 0
+spawnX: 0
+spawnY: 0
+spawnX: 0
+spawnY: 0
+spawnX: 0
+spawnY: 0
+spawnX: 0
+spawnY: 0
+spawnX: 0
+spawnY: 0
+------------- ---------------- ---------------
+
+Testcase: testLogImage took 0.518 sec
+Testcase: testLogSpeed took 0.003 sec
+Testcase: testSetUpRightLog took 0.001 sec
+Testcase: testSetUpLeftLog took 0.002 sec

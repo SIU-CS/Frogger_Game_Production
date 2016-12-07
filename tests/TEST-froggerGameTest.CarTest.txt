@@ -1,0 +1,17 @@
+Testsuite: froggerGameTest.CarTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.611 sec
+------------- Standard Output ---------------
+spawnX: 0
+spawnY: 0
+spawnX: 0
+spawnY: 0
+spawnX: 0
+spawnY: 0
+spawnX: 0
+spawnY: 0
+------------- ---------------- ---------------
+
+Testcase: testSetUpRightCar took 0.531 sec
+Testcase: testSetUpLeftTruck took 0.012 sec
+Testcase: testSetUpLeftCar took 0.004 sec
+Testcase: testSetUpRightTruck took 0.007 sec

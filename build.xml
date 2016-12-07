@@ -32,6 +32,7 @@
 	<target name="main" depends="clean,run" />
 	<property name="test.report.dir" value="./tests" />
 	<mkdir dir="${test.report.dir}" />
+	
 	<target name="junit" depends="compile">
 		<junit printsummary="on" fork="true" haltonfailure="yes">
 			<classpath>

@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import frogger.GameTools;
 
-public class FileCheck {
+public class FileTest {
 	private String fileList[] = GameTools.getFileNames();
 	int counter = 0;
 	@Test

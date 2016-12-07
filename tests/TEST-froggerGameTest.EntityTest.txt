@@ -1,8 +1,8 @@
 Testsuite: froggerGameTest.EntityTest
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.503 sec
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.505 sec
 
-Testcase: testSetGetSprite took 0.41 sec
+Testcase: testSetGetSprite took 0.191 sec
 Testcase: testSetGetVisible took 0 sec
 Testcase: testGetBounds took 0.002 sec
-Testcase: testGetCheckBoundaries took 0.004 sec
+Testcase: testGetCheckBoundaries took 0.018 sec
 Testcase: testSetGetXY took 0 sec

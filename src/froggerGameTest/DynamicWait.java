@@ -6,7 +6,7 @@ import org.junit.Test;
 import frogger.Dynamic;
 
 public class DynamicWait {
-	Dynamic d = new Dynamic();
+	private Dynamic d = new Dynamic();
 	
 	@Before
 	public void setUpBefore() throws Exception {

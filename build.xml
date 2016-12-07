@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Frogger_Game_Production" basedir="." default="main">
+<project name="Frogger_Game_Production" basedir="." default="junit">
 	<property name="src.dir" value="src" />
 	<property name="build.dir" value="build" />
 	<property name="classes.dir" value="${build.dir}/classes" />

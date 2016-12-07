@@ -34,7 +34,7 @@
 	<mkdir dir="${test.report.dir}" />
 	
 	<target name="junit" depends="compile">
-		<junit printsummary="on" fork="true" haltonfailure="yes">
+		<junit printsummary="on" fork="true" haltonfailure="yes" classpath="junit-4.12.jar">
 			<classpath>
 				<fileset dir="/">
 					<include name="junit-4.12.jar" />

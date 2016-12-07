@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import frogger.Dynamic;
 
-public class DynamicTest {
+public class DynamicWait {
 	Dynamic d = new Dynamic();
 	
 	@Before

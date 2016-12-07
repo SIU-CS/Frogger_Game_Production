@@ -15,7 +15,7 @@ public class EntityTest {
 	static Image sprite;
 	
 	@Before
-	public void setUpBefore() throws Exception {
+	public void setUpBefore(){
 		ImageIcon ii = new ImageIcon("src/frog.png");
 		sprite = ii.getImage();
 		e.setSprite("src/frog.png");

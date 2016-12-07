@@ -7,22 +7,16 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-import org.junit.Before;
 import frogger.Car;
 
 import frogger.GameTools;
 
 public class CarTest {
-	//sets up the car and truck before the class
-	private Car car;
-	private Car truck;
-	@Before
-	public void setUpBefore() throws Exception {
-		
-	}
+
 
 	@Test
 	public void testSetUpRightCar() {
+		Car car;
 		//sets up the testie
 		car = new Car(1, 0, 0, 1, true);
 		//sets up the tester
@@ -35,6 +29,7 @@ public class CarTest {
 	}
 	@Test
 	public void testSetUpLeftCar() {
+		Car car;
 		//sets up the testie
 		car = new Car(1, 0, 0, 1, false);
 		//sets up the tester
@@ -47,6 +42,8 @@ public class CarTest {
 	}
 	@Test
 	public void testSetUpRightTruck() {
+		
+		Car truck;
 		//sets up the testie
 		truck = new Car(1, 0, 0, 2, true);
 		//sets up the tester
@@ -59,6 +56,8 @@ public class CarTest {
 	}
 	@Test
 	public void testSetUpLeftTruck() {
+		
+		Car truck;
 		//sets up the testie
 		truck = new Car(1, 0, 0, 2, false);
 		//sets up the tester

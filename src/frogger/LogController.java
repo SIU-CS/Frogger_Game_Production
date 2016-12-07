@@ -13,7 +13,7 @@ public class LogController {
 	protected final int MINIMUM_DIST_LOGS = 192;
 	
 	//max and min speed that can be obtained
-	protected final int MAX_SPEED = 6;
+	protected final int MAX_SPEED = 5;
 	protected final int MINIMUM_SPEED = 2;
 	
 	//amount of resets until speed for a lane will be changed

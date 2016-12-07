@@ -19,6 +19,7 @@ public class Car extends Dynamic{
 			//car
 			default:
 			case 1:
+				setOffset(64);
 				if(getMoveRight())
 					typePath= GameTools.carRightImagePath;
 				else

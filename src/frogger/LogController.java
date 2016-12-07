@@ -114,7 +114,7 @@ public class LogController {
 	//checks if frog is in water and not on the log   
 	public boolean checkWaterHit(Player frog) {
 		int frogY = frog.getY();
-		if(frogY < GameTools.numWaterSquares * GameTools.rowHeight && frogY > GameTools.rowHeight && System.currentTimeMillis() - lastLogHitTimer > 100)
+		if(frogY < GameTools.numWaterSquares * GameTools.rowHeight /*&& frogY > GameTools.rowHeight*/ && System.currentTimeMillis() - lastLogHitTimer > 100)
 			return true;
 		return false;
 	}

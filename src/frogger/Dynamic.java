@@ -13,6 +13,7 @@ public class Dynamic extends Entity{
    //The coordinates in which the hostile entity will spawn at once it is initiated.
    protected int spawnX;
    protected int spawnY;
+   protected int offset = 0;
    
    protected boolean moveRight; //whether the object is moving from left of screen or right
    private int speed;           //speed of the car
@@ -50,6 +51,10 @@ public class Dynamic extends Entity{
    public int getSpawnY(){
 	   return spawnY;
    }
+	
+   public void setOffset(int offset){
+	this.offset = offset;	   
+   }
    
    //sets objects direction its moving
    public void setMoveRight(boolean moveRight){
@@ -84,7 +89,7 @@ public class Dynamic extends Entity{
    //moving of the object
    public int move(){
 	   if(moveRight){
-		   if(getX() < GameTools.boardWidth)
+		   if(getX() < GameTools.boardWidth + offset)
 			   setX(getX() + speed);
    		   else{
    			   x=-(getSpriteWidth());
@@ -92,7 +97,7 @@ public class Dynamic extends Entity{
    		   }
 	   }
    	   else{
-   		   if(getX() > -getSpriteWidth())
+   		   if(getX() > -(getSpriteWidth() + offset))
    			   setX(getX() - speed);
            else{
         	   x=GameTools.boardWidth;
